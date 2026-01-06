@@ -2,263 +2,144 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="color-scheme" content="dark" />
-  <title>F1rst-Connect by Jan Schmidt – nächster logischer Schritt</title>
-  <meta name="description" content="Ruhiger Navigator: 1 Thema → 1 klarer nächster Schritt. Einmal kostenlos, danach bezahlte Ausarbeitung." />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>F1rst-Connect by Jan Schmidt</title>
+  <meta name="description" content="Ruhiger Navigator: Klarheit, Struktur, nächster logischer Schritt. 1 kostenloser Next Step pro Person." />
   <style>
     :root{
-      --bg:#07101a;
-      --panel:#0b1624;
-      --panel2:#0d1b2c;
-      --text:#eaf2ff;
-      --muted:#aab9d1;
+      --bg:#071019;
+      --card:#0b1624;
+      --card2:#0c1b2d;
+      --text:#e7f0ff;
+      --muted:#a9bdd9;
       --line:rgba(255,255,255,.08);
-      --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --radius: 22px;
-      --accent:#5cc3ff;
-      --accent2:#7be0ff;
-      --ok:#36d399;
-      --warn:#fbbf24;
-      --danger:#fb7185;
-      --focus: 0 0 0 3px rgba(92,195,255,.35);
-      --max: 980px;
+      --btn:#63b3ff;
+      --btn2:#1f2f44;
+      --shadow: 0 18px 45px rgba(0,0,0,.45);
+      --r:20px;
     }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 600px at 15% 10%, rgba(92,195,255,.14), transparent 60%),
-                  radial-gradient(900px 500px at 85% 20%, rgba(123,224,255,.10), transparent 55%),
-                  linear-gradient(180deg, #050b12 0%, var(--bg) 40%, #040910 100%);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 900px at 15% 10%, rgba(99,179,255,.18), transparent 55%),
+                  radial-gradient(1000px 700px at 90% 20%, rgba(117,255,206,.10), transparent 55%),
+                  var(--bg);
       color:var(--text);
-      line-height:1.45;
+      line-height:1.4;
     }
-
-    a{ color:inherit; text-decoration:none; }
-    a:focus, button:focus, summary:focus, textarea:focus, input:focus{ outline:none; box-shadow: var(--focus); border-color: rgba(92,195,255,.55); }
-    .skip{
-      position:absolute; left:-999px; top:10px;
-      background: #000; color:#fff; padding:10px 12px; border-radius:12px;
-      border:1px solid var(--line);
-    }
-    .skip:focus{ left:12px; z-index:9999; }
-
-    .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 14px 80px; }
+    a{color:inherit}
+    .wrap{max-width:980px; margin:0 auto; padding:20px 14px 60px;}
     header{
-      position: sticky; top:0; z-index:50;
+      position:sticky; top:0; z-index:10;
       backdrop-filter: blur(10px);
-      background: rgba(5,10,16,.62);
+      background: rgba(7,16,25,.55);
       border-bottom:1px solid var(--line);
     }
-    .head{
-      max-width: var(--max); margin:0 auto; padding: 12px 14px;
+    .nav{
+      max-width:980px; margin:0 auto; padding:14px 14px;
       display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px; min-width: 0;
+    .brand{display:flex; gap:10px; align-items:center; min-width:0;}
+    .dot{width:12px; height:12px; border-radius:99px; background:var(--btn); box-shadow:0 0 0 6px rgba(99,179,255,.12)}
+    .brand strong{display:block; font-weight:800; letter-spacing:.2px}
+    .brand span{display:block; color:var(--muted); font-size:13px}
+    .links{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .links a{
+      text-decoration:none;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:14px;
+      background: rgba(11,22,36,.55);
     }
-    .dot{
-      width:12px; height:12px; border-radius:999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 6px rgba(92,195,255,.10);
-      flex:0 0 auto;
-    }
-    .title{
-      display:flex; flex-direction:column; min-width:0;
-    }
-    .title b{ font-size:14px; letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .title span{ font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-
-    nav{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
-    nav a{
-      font-size:13px; color:var(--muted);
-      padding:8px 10px; border-radius:12px; border:1px solid transparent;
-    }
-    nav a:hover{ color:var(--text); border-color: var(--line); background: rgba(255,255,255,.04); }
-
-    main{ padding-top: 18px; }
-    .grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:16px;
-      align-items:start;
-    }
-    @media (max-width: 860px){
-      .grid{ grid-template-columns: 1fr; }
-      nav{ justify-content:flex-start; }
-    }
-
+    .links a:hover{color:var(--text); border-color:rgba(99,179,255,.35)}
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      background: linear-gradient(180deg, rgba(12,27,45,.92), rgba(11,22,36,.92));
       border:1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius:var(--r);
       box-shadow: var(--shadow);
-      padding: 18px;
+      padding:18px;
     }
-    .card.soft{ box-shadow:none; background: rgba(255,255,255,.03); }
-    h1{
-      margin:0 0 10px;
-      font-size: 34px;
-      line-height:1.08;
-      letter-spacing: -0.6px;
+    .hero{
+      margin-top:18px;
+      padding:22px;
+      background: radial-gradient(800px 420px at 10% 0%, rgba(99,179,255,.24), transparent 55%),
+                  linear-gradient(180deg, rgba(12,27,45,.92), rgba(11,22,36,.92));
     }
-    @media (max-width: 420px){ h1{ font-size: 30px; } }
-
-    .lead{ color:var(--muted); margin: 0 0 14px; }
-    .pillrow{ display:flex; gap:8px; flex-wrap:wrap; margin: 10px 0 14px; }
+    h1{margin:0 0 8px; font-size:28px; letter-spacing:.2px}
+    .sub{color:var(--muted); margin:0 0 14px}
+    .pills{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 18px}
     .pill{
-      font-size:12px;
-      color: var(--muted);
+      font-size:13px; color:var(--muted);
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
-      padding:6px 10px;
-      border-radius: 999px;
+      padding:6px 10px; border-radius:999px;
     }
-
-    .btnrow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap}
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      border-radius: 16px;
-      padding: 12px 14px;
-      font-weight: 700;
-      border:1px solid transparent;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
-      text-align:center;
+      appearance:none; border:0; cursor:pointer;
+      padding:12px 14px; border-radius:14px;
+      font-weight:700; letter-spacing:.2px;
     }
-    .btn:active{ transform: translateY(1px); }
-    .btn.primary{
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color:#06111b;
-    }
-    .btn.primary:hover{ filter: brightness(1.03); }
-    .btn.ghost{
-      background: rgba(255,255,255,.03);
-      border-color: var(--line);
-      color: var(--text);
-    }
-    .btn.ghost:hover{ background: rgba(255,255,255,.05); }
-
-    .mini{ font-size:12px; color:var(--muted); margin-top: 10px; }
-    .hr{ height:1px; background: var(--line); margin: 14px 0; }
-
+    .btnPrimary{background:var(--btn); color:#04121f}
+    .btnGhost{background:var(--btn2); color:var(--text); border:1px solid var(--line)}
+    .btnPrimary:hover{filter:brightness(1.05)}
+    .btnGhost:hover{border-color:rgba(99,179,255,.35)}
+    .grid{display:grid; gap:14px; margin-top:16px}
+    @media(min-width:860px){ .grid{grid-template-columns:1.05fr .95fr} }
+    h2{margin:0 0 10px; font-size:18px}
+    .muted{color:var(--muted)}
+    .ruleBox{margin-top:10px; padding:12px 12px; border-radius:16px; border:1px solid var(--line); background: rgba(255,255,255,.03)}
     details{
       border:1px solid var(--line);
+      border-radius:16px;
       background: rgba(255,255,255,.03);
-      border-radius: 18px;
-      padding: 12px 12px;
+      padding:12px;
     }
-    details + details{ margin-top: 10px; }
-    summary{
-      cursor:pointer;
-      list-style:none;
-      font-weight:800;
-    }
-    summary::-webkit-details-marker{ display:none; }
-    details p{ color:var(--muted); margin: 8px 0 0; }
-
-    .list{
-      margin: 10px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-    .list li{ margin: 6px 0; }
-
-    .rulebox{
-      padding: 14px;
-      border-radius: 18px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
-    .rulebox b{ display:block; margin-bottom:6px; }
-
-    .ref{
-      display:grid;
-      gap:10px;
-    }
-    .ref .row{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: 18px;
-      padding: 12px;
-    }
-    .ref .row b{ display:block; margin-bottom:6px; }
-    .ref .row span{ color:var(--muted); font-size:13px; }
-
+    summary{cursor:pointer; font-weight:800}
+    .list{margin:10px 0 0; padding-left:18px; color:var(--muted)}
     .topics{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
+      display:grid; gap:10px; margin-top:10px;
     }
-    @media (max-width: 560px){
-      .topics{ grid-template-columns: 1fr; }
-    }
-    .topicbtn{
+    .topicBtn{
       text-align:left;
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
-      border-radius: 18px;
-      padding: 12px;
+      padding:12px 12px;
+      border-radius:16px;
       cursor:pointer;
     }
-    .topicbtn:hover{ background: rgba(255,255,255,.05); }
-    .topicbtn b{ display:block; }
-    .topicbtn span{ display:block; margin-top:6px; font-size:12px; color:var(--muted); }
-
+    .topicBtn strong{display:block; margin-bottom:4px}
+    .topicBtn span{color:var(--muted); font-size:13px}
+    .topicBtn:hover{border-color:rgba(99,179,255,.35)}
+    .mini{font-size:12px; color:var(--muted); margin-top:10px}
     footer{
-      margin-top: 18px;
-      padding-top: 14px;
+      margin-top:18px;
+      display:flex; flex-direction:column; gap:10px;
       border-top:1px solid var(--line);
+      padding-top:14px;
       color:var(--muted);
-      font-size:12px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
     }
-    .footlinks{ display:flex; gap:10px; flex-wrap:wrap; }
-    .footlinks a{ color:var(--muted); padding:6px 8px; border-radius:12px; border:1px solid transparent; }
-    .footlinks a:hover{ color:var(--text); border-color: var(--line); background: rgba(255,255,255,.04); }
-
-    .social{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
-    .social a{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      padding:10px 12px;
-      border-radius: 16px;
-      font-weight:700;
-      font-size:13px;
-    }
-    .social a:hover{ background: rgba(255,255,255,.05); }
-
-    /* Anchor offset for sticky header */
-    section{ scroll-margin-top: 80px; }
+    .footerLinks{display:flex; gap:12px; flex-wrap:wrap}
+    .footerLinks a{color:var(--muted); text-decoration:none}
+    .footerLinks a:hover{color:var(--text)}
   </style>
 </head>
 
-<body>
-  <a class="skip" href="#content">Zum Inhalt springen</a>
-
+<body id="top">
   <header>
-    <div class="head">
+    <div class="nav">
       <div class="brand">
-        <div class="dot" aria-hidden="true"></div>
-        <div class="title">
-          <b>F1rst-Connect by Jan Schmidt</b>
+        <div class="dot"></div>
+        <div style="min-width:0">
+          <strong>F1rst-Connect by Jan Schmidt</strong>
           <span>Ruhiger Navigator · nächster logischer Schritt</span>
         </div>
       </div>
 
-      <nav aria-label="Hauptnavigation">
+      <nav class="links" aria-label="Navigation">
         <a href="#start">Start</a>
         <a href="#ablauf">Ablauf</a>
         <a href="formular.html">Formular</a>
@@ -268,177 +149,146 @@
     </div>
   </header>
 
-  <main id="content" class="wrap">
-    <section id="start" class="grid" aria-label="Startbereich">
-      <div class="card">
-        <h1>Sei nicht Teil des Problems.<br>Sei Teil der Lösung.</h1>
-        <p class="lead">
-          1 Thema → 1 nächster Schritt. Einmal kostenlos. Danach: bezahlte Ausarbeitung, wenn du willst.
-        </p>
+  <main class="wrap">
+    <section id="start" class="card hero">
+      <h1>Sei nicht Teil des Problems. Sei Teil der Lösung.</h1>
+      <p class="sub">
+        Du bekommst keinen Motivations-Text. Du bekommst <b>Klarheit</b> + <b>einen machbaren Next Step</b>.
+        <br><b>1 kostenloser Next Step pro Person.</b> Danach: bezahlte Ausarbeitung, wenn du willst.
+      </p>
 
-        <div class="pillrow" aria-label="Kurzvorteile">
-          <span class="pill">Klarheit statt Chaos</span>
-          <span class="pill">1 Thema · 1 Schritt</span>
-          <span class="pill">Win-Win-Win</span>
-        </div>
-
-        <div class="btnrow">
-          <a class="btn primary" href="formular.html" id="cta">Kostenlosen nächsten Schritt erhalten</a>
-          <a class="btn ghost" href="#ablauf">Ablauf ansehen</a>
-        </div>
-
-        <div class="mini">
-          Kein Verkauf. Keine Verpflichtung. Ein klarer nächster Schritt.
-          <br><b>Hinweis:</b> 1 kostenloser Next Step pro Person. Danach ist Weiterarbeit kostenpflichtig.
-        </div>
+      <div class="pills">
+        <div class="pill">Klarheit statt Chaos</div>
+        <div class="pill">1 Thema · 1 Schritt</div>
+        <div class="pill">Win-Win-Win</div>
       </div>
 
-      <aside class="card soft">
-        <div class="rulebox" aria-label="Regeln">
-          <b>Regeln (damit’s funktioniert)</b>
-          <div class="mini" style="margin-top:0">
-            Fokus schlägt Chaos. Wenn’s „alles auf einmal“ ist, schneiden wir es auf ein Thema runter.
-            Keine Romane, keine Endlos-Listen.
-          </div>
-        </div>
+      <div class="ctaRow">
+        <a class="btn btnPrimary" href="formular.html" style="text-decoration:none;">Kostenlosen Next Step erhalten</a>
+        <a class="btn btnGhost" href="#ablauf" style="text-decoration:none;">Ablauf ansehen</a>
+      </div>
 
-        <div class="hr"></div>
-
-        <div class="ref" aria-label="Kurzprofil">
-          <div class="row">
-            <b>Wer hier denkt und entscheidet</b>
-            <span>Ruhig, strukturiert, ehrlich. Wenn was nicht passt, sag ich’s. Wenn es passt, bekommst du Führung.</span>
-          </div>
-
-          <div class="row">
-            <b>Referenzen (kompakt)</b>
-            <span>
-              • Ausbildung: Bürokaufmann<br>
-              • Vertrieb/Callcenter-Praxis (Gesprächsführung, Abschlüsse) – ca. 2 Jahre<br>
-              • D2D / Feldvertrieb & Kaltakquise – 09/2008 bis 01/2025 (Erfahrung im Feld)<br>
-              • Organisations- & Führungsverantwortung (u. a. Standort/Teams)<br>
-              • IHK: zertifizierter Salespartner im Direktvertrieb<br>
-              • Gewerbe aktiv: <b>F1rst-Connect by Jan Schmidt</b> (seit 03.05.2022)<br>
-              <span style="color:var(--muted)">Hinweis: Seit Aug 2025 keine aktive VO-Nummer mehr; frühere Tätigkeiten beendet.</span>
-            </span>
-          </div>
-
-          <div class="row">
-            <b>Socials (echt, direkt)</b>
-            <span>Wähle den Kanal, der dir passt:</span>
-            <div class="social" style="margin-top:10px" aria-label="Social Links">
-              <a href="https://x.com/schmidti86" target="_blank" rel="noopener">X</a>
-              <a href="https://instagram.com/schmidtideal" target="_blank" rel="noopener">Instagram</a>
-              <a href="https://t.me/keksversum" target="_blank" rel="noopener">Telegram</a>
-              <a href="https://www.snapchat.com/add/janschmidt.1.2" target="_blank" rel="noopener">Snapchat</a>
-              <a href="https://www.youtube.com/@therealschmidti" target="_blank" rel="noopener">YouTube</a>
-            </div>
-            <div class="mini">Business: lieber Formular nutzen – das ist dein sauberer “Inbound-Kanal”.</div>
-          </div>
-        </div>
-      </aside>
+      <div class="mini">Kein Verkauf. Keine Verpflichtung. Ein klarer nächster Schritt.</div>
     </section>
 
-    <section id="ablauf" style="margin-top:16px" class="grid" aria-label="Ablaufbereich">
+    <section class="grid" style="margin-top:16px">
       <div class="card">
-        <h2 style="margin:0 0 10px">So funktioniert’s</h2>
+        <h2 id="ablauf">So funktioniert’s</h2>
         <ol class="list">
-          <li>Du beschreibst <b>ein</b> Thema kurz (2–4 Sätze).</li>
-          <li>Ich liefere <b>1 nächsten logischen Schritt</b> (klar, machbar, ohne Overkill).</li>
-          <li>Du setzt um – danach entscheiden wir, ob es weitergeht (bezahlt).</li>
+          <li>Du beschreibst <b>ein Thema</b> kurz und klar.</li>
+          <li>Ich liefere <b>einen nächsten Schritt</b> (machbar, ohne Overkill).</li>
+          <li>Du setzt um – danach entscheiden wir, ob’s weitergeht (bezahlt).</li>
         </ol>
 
-        <div class="hr"></div>
-
-        <h2 style="margin:0 0 10px">Themen – Beispiele (zum Anklicken)</h2>
-        <p class="lead" style="margin-top:0">Klick eins an – du landest direkt im Formular (Text ist editierbar).</p>
-
-        <div class="topics" role="list">
-          <button class="topicbtn" data-topic="Finanzen & Ordnung" data-text="Ich will meine Finanzen ordnen und in einen stabilen Plan bringen. Ich brauche den nächsten machbaren Schritt für diese Woche. Budget/Schulden/Offenes: kurz sortieren. Ziel: Ruhe + Kontrolle.">
-            <b>Finanzen & Ordnung</b>
-            <span>Budget, Schulden, Struktur, nächste Woche klar ziehen.</span>
-          </button>
-
-          <button class="topicbtn" data-topic="Job/Positionierung" data-text="Ich will mich beruflich neu positionieren. Ich brauche einen klaren nächsten Schritt (CV/Profil/Angebot) ohne Gelaber. Ziel: 1 realer Lead / 1 Bewerbung / 1 Gespräch.">
-            <b>Job / Positionierung</b>
-            <span>CV, Profil, Angebot, nächste Aktion.</span>
-          </button>
-
-          <button class="topicbtn" data-topic="Beziehung & Familie" data-text="Ich will zu Hause mehr Ruhe und bessere Abläufe. Ich brauche den nächsten Schritt, der sofort Stress rausnimmt. Ziel: klare Regeln, weniger Reibung, mehr Zeit.">
-            <b>Beziehung & Familie</b>
-            <span>Klare Absprachen, weniger Stress, mehr Flow.</span>
-          </button>
-
-          <button class="topicbtn" data-topic="Gesundheit & Stabilität" data-text="Ich will Stabilität und bessere Gewohnheiten. Ich brauche einen nächsten Schritt, der wirklich durchziehbar ist. Ziel: Schlaf/Routine/Belastung runter – ohne Extremprogramm.">
-            <b>Gesundheit & Stabilität</b>
-            <span>Routinen, Stress runter, stabile Basics.</span>
-          </button>
-
-          <button class="topicbtn" data-topic="Organisation & Prozesse" data-text="Ich will Prozesse vereinfachen und Verantwortung klären. Ich brauche den nächsten logischen Schritt, um Chaos in Struktur zu drehen. Ziel: 1 System/Checkliste, die sofort wirkt.">
-            <b>Organisation & Prozesse</b>
-            <span>System bauen, Verantwortungen klären.</span>
-          </button>
-
-          <button class="topicbtn" data-topic="Projekt/Website/Content" data-text="Ich will ein Projekt sauber starten oder fertig machen (Website/Content). Ich brauche den nächsten Schritt, der messbar ist. Ziel: 1 konkretes Deliverable (live/posted/abgegeben).">
-            <b>Projekt / Website / Content</b>
-            <span>Liefern statt planen: 1 Output.</span>
-          </button>
+        <div class="ruleBox">
+          <b>Regeln (damit’s funktioniert)</b><br>
+          Fokus schlägt Chaos. Wenn’s „alles auf einmal“ ist, schneiden wir’s auf <b>ein Thema</b> runter.
+          Keine Romane, keine Endlos-Listen.
         </div>
 
-        <div class="mini" style="margin-top:12px">
-          Technisch abgesichert: 1 Antwort pro Person (über Formular-Logik).
-        </div>
+        <details style="margin-top:12px">
+          <summary>FAQ</summary>
+          <div class="muted" style="margin-top:10px">
+            <p><b>Warum nur ein kostenloser Schritt?</b><br>
+              Orientierung ist einmalig. Danach ist’s Umsetzung – das ist Arbeit.</p>
+            <p><b>Mehrere Themen?</b><br>
+              Wähle eins. Den Rest parken wir.</p>
+          </div>
+        </details>
       </div>
 
-      <aside class="card soft">
-        <details open>
-          <summary>Arbeitsweise</summary>
-          <p>Ruhig. Strukturiert. Ehrlich. Keine Spielchen, keine Up-Sell-Masche. Orientierung ist einmalig – Umsetzung ist Arbeit.</p>
-        </details>
+      <div class="card">
+        <h2>Wer hier denkt und entscheidet</h2>
+        <p class="muted" style="margin:0 0 10px">
+          Ruhig, strukturiert, ehrlich. Wenn was nicht passt, sag ich’s. Wenn es passt, bekommst du Führung.
+        </p>
 
-        <details>
-          <summary>FAQ</summary>
-          <p><b>Warum nur ein kostenloser Schritt?</b> Weil Orientierung einmalig ist. Alles danach ist Ausarbeitung.</p>
-          <p><b>Mehrere Themen?</b> Wähle eins. Fokus schlägt Chaos.</p>
-        </details>
+        <ul class="list">
+          <li><b>Ausbildung:</b> Bürokaufmann</li>
+          <li><b>Callcenter/Telefon-Vertrieb:</b> ca. 2 Jahre (≈ 2008–2010)</li>
+          <li><b>D2D / Kaltakquise / Vertrieb:</b> 09/2008 – 01/2025 (langjährig)</li>
+          <li><b>Organisation & Führung:</b> u. a. Standort/Teams</li>
+          <li><b>IHK:</b> zertifizierter Salespartner im Direktvertrieb</li>
+          <li><b>Gewerbe aktiv:</b> F1rst-Connect by Jan Schmidt (seit 03.05.2022)</li>
+        </ul>
 
-        <details>
-          <summary>Datenschutz/Transparenz</summary>
-          <p>Impressum & Datenschutz sind oben verlinkt. Keine Tracker/Shortener-Links im ersten Rollout.</p>
-        </details>
-      </aside>
+        <p class="mini">
+          Rechen-Note (ohne Feiertage): 09/2008–01/2025 sind grob <b>~4.285 Werktage</b> (Mo–Fr).<br>
+          Hinweis: Seit Aug 2025 keine aktive VO-Nummer mehr; frühere Tätigkeiten beendet.
+        </p>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <h2>Themen – Beispiele (zum Anklicken)</h2>
+      <p class="muted" style="margin:0 0 10px">
+        Tippe eins an – du kannst den Text im Formular danach noch anpassen.
+      </p>
+
+      <div class="topics" role="list">
+        <button class="topicBtn" data-fill="Finanzen & Ordnung: Ich will meine offenen Baustellen sortieren und einen klaren Plan mit 1–3 Sofort-Schritten. Ich brauche Struktur statt Chaos." role="listitem">
+          <strong>Finanzen & Ordnung</strong>
+          <span>1 Schritt zur Stabilität (Sortieren → Priorisieren → Aktion)</span>
+        </button>
+
+        <button class="topicBtn" data-fill="Job & Positionierung: Ich will wieder sauber ins Einkommen kommen. Ich brauche einen nächsten Schritt (Richtung, Angebot, erste Aktion) ohne Gelaber." role="listitem">
+          <strong>Job & Positionierung</strong>
+          <span>Richtung + nächster Hebel</span>
+        </button>
+
+        <button class="topicBtn" data-fill="Familie & Alltag: Wir wollen weniger Stress und klare Routinen. Gib mir bitte einen machbaren nächsten Schritt, den wir sofort testen können." role="listitem">
+          <strong>Familie & Alltag</strong>
+          <span>Routinen, Rollen, Klarheit</span>
+        </button>
+
+        <button class="topicBtn" data-fill="System & Prozesse: Ich will meine Abläufe vereinfachen (Tools, Dokumente, To-dos). Ich brauche den nächsten logischen Schritt als Setup-Plan." role="listitem">
+          <strong>System & Prozesse</strong>
+          <span>Setup, Ordnung, Wiederholbarkeit</span>
+        </button>
+      </div>
+
+      <div class="ctaRow" style="margin-top:12px">
+        <a class="btn btnPrimary" href="formular.html" style="text-decoration:none;">Zum Formular</a>
+        <a class="btn btnGhost" href="#top" style="text-decoration:none;">Zurück nach oben</a>
+      </div>
+
+      <p class="mini">Technisch abgesichert: 1 Antwort pro Person (kommt als nächstes über Google Forms/Tally).</p>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <h2>Socials</h2>
+      <p class="muted" style="margin:0 0 10px">Direkt rein – ohne Umwege:</p>
+      <div class="footerLinks">
+        <a href="https://t.me/keksversum" target="_blank" rel="noopener">Telegram: t.me/keksversum</a>
+        <a href="https://x.com/schmidti86" target="_blank" rel="noopener">X: @schmidti86</a>
+        <a href="https://www.instagram.com/schmidtideal/" target="_blank" rel="noopener">Instagram: @schmidtideal</a>
+        <a href="https://www.snapchat.com/add/schmidtideal" target="_blank" rel="noopener">Snapchat: schmidtideal</a>
+      </div>
+      <p class="mini">Snap-User (alt): janschmidt.1.2</p>
     </section>
 
     <footer>
-      <div>
-        <b style="color:var(--text)">Created by: F1rst-Connect by Jan Schmidt</b><br>
-        Win-Win-Win: Nutzer · Partner/Institutionen · System
-      </div>
-      <div class="footlinks" aria-label="Footer Links">
+      <div><b>Created by:</b> F1rst-Connect by Jan Schmidt</div>
+      <div class="footerLinks">
         <a href="#start">Start</a>
         <a href="#ablauf">Ablauf</a>
         <a href="formular.html">Formular</a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
       </div>
+      <div class="mini">Win-Win-Win: Nutzer · Partner/Institutionen · System</div>
     </footer>
   </main>
 
   <script>
-    // Themen-Buttons -> Formular vorbefüllen (ohne Server)
-    // formular.html liest localStorage und setzt es ins Textfeld.
-    (function(){
-      const btns = document.querySelectorAll(".topicbtn");
-      btns.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const topic = btn.getAttribute("data-topic") || "";
-          const text  = btn.getAttribute("data-text") || "";
-          localStorage.setItem("f1rst_topic", topic);
-          localStorage.setItem("f1rst_text", text);
-          window.location.href = "formular.html";
-        });
+    // Topic click -> store text and go to formular.html
+    document.querySelectorAll(".topicBtn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const text = btn.getAttribute("data-fill") || "";
+        try { localStorage.setItem("f1rst_topic_prefill", text); } catch(e){}
+        window.location.href = "formular.html";
       });
-    })();
+    });
   </script>
 </body>
 </html>

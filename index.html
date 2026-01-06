@@ -1,703 +1,237 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="F1rst-Connect by Jan Schmidt – ein kostenloser nächster Schritt pro Person. Klar. Ruhig. Umsetzbar." />
-  <title>F1rst-Connect by Jan Schmidt</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>F1rst-Connect by Jan Schmidt – nächster logischer Schritt</title>
+
+  <meta name="description" content="Ein klarer nächster Schritt. Einmal kostenlos. Danach nur, wenn du willst. Ruhe, Struktur, Entscheidung." />
 
   <style>
     :root{
-      --bg:#070A10;
-      --panel:#0B1020;
-      --card:#0E162A;
-      --card2:#0C1325;
-      --text:#EAF0FF;
-      --muted:#A7B2D0;
-      --muted2:#7E8BB0;
-      --border:rgba(255,255,255,.08);
-      --border2:rgba(255,255,255,.12);
-      --accent:#7DD3FC;
-      --accent2:#38BDF8;
-      --ok:#34D399;
-      --warn:#FBBF24;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 18px;
-      --radius2: 22px;
-      --max: 980px;
-      --focus: 0 0 0 3px rgba(125,211,252,.35);
+      --bg:#0b1220;
+      --card:#121a2e;
+      --accent:#5ecbff;
+      --text:#e6ebf2;
+      --muted:#9aa4b2;
+      --radius:16px;
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-      background: radial-gradient(900px 500px at 20% 0%, rgba(56,189,248,.12), transparent 55%),
-                  radial-gradient(800px 450px at 90% 10%, rgba(125,211,252,.10), transparent 50%),
-                  linear-gradient(180deg, var(--bg), #05070D 70%);
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu;
+      background:radial-gradient(1200px 600px at 20% -10%,#16203b,var(--bg));
       color:var(--text);
-      line-height:1.55;
+      line-height:1.5;
     }
 
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
-    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-      outline:none;
-      box-shadow: var(--focus);
-      border-color: rgba(125,211,252,.6) !important;
-    }
+    a{color:var(--accent);text-decoration:none}
 
-    .skiplink{
-      position:absolute; left:-999px; top:auto;
-      width:1px; height:1px; overflow:hidden;
-    }
-    .skiplink:focus{
-      left:16px; top:16px; width:auto; height:auto;
-      padding:10px 12px; border-radius:12px;
-      background: rgba(125,211,252,.18);
-      border:1px solid rgba(125,211,252,.35);
-      z-index:9999;
-    }
-
-    .wrap{max-width:var(--max); margin:0 auto; padding:24px 18px 60px}
-    .topbar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(5,7,13,.62);
-      border-bottom:1px solid var(--border);
-    }
-    .topbarInner{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:12px 18px;
+    header{
+      padding:20px;
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:14px;
-    }
-
-    .brand{
-      display:flex; align-items:center; gap:12px; min-width:0;
-    }
-    .logo{
-      width:34px; height:34px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(125,211,252,.25), rgba(56,189,248,.12));
-      border:1px solid rgba(125,211,252,.25);
-      display:grid; place-items:center;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-    }
-    .logoDot{
-      width:10px; height:10px; border-radius:999px;
-      background: var(--accent);
-      box-shadow: 0 0 18px rgba(125,211,252,.55);
-    }
-    .brandText{min-width:0}
-    .brandName{
-      font-weight:750; letter-spacing:.2px; font-size:14px;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    }
-    .brandSub{color:var(--muted2); font-size:12px; margin-top:1px}
-
-    .nav{
-      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    }
-    .nav a{
-      color:var(--muted);
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
-      font-size:13px;
-    }
-    .nav a:hover{
-      color:var(--text);
-      border-color: var(--border);
-      text-decoration:none;
-      background: rgba(255,255,255,.03);
-    }
-
-    .hero{
-      padding:30px 0 10px;
-    }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    @media (max-width: 920px){
-      .heroGrid{grid-template-columns:1fr}
-    }
-
-    .panel{
-      background: linear-gradient(180deg, rgba(14,22,42,.92), rgba(11,16,32,.92));
-      border:1px solid var(--border);
-      border-radius: var(--radius2);
-      box-shadow: var(--shadow);
-      padding:22px;
-    }
-
-    .h1{
-      font-size: clamp(26px, 3.2vw, 42px);
-      line-height:1.08;
-      margin:0 0 12px;
-      letter-spacing:-.6px;
-    }
-    .lead{
-      margin:0 0 16px;
-      color:var(--muted);
-      font-size: 15.5px;
-    }
-
-    .tagRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
-    .tag{
-      display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      color:var(--muted);
-      background: rgba(255,255,255,.02);
-      font-size:12.5px;
-    }
-    .tagDot{
-      width:8px; height:8px; border-radius:999px;
-      background: rgba(125,211,252,.65);
-      box-shadow: 0 0 14px rgba(125,211,252,.35);
+      font-size:14px;
     }
 
-    .ctaBox{
-      display:flex; flex-direction:column; gap:10px;
-      justify-content:space-between;
-    }
-
-    .btnRow{display:flex; gap:12px; flex-wrap:wrap}
-    .btn{
-      appearance:none; border:none; cursor:pointer;
-      border-radius:16px;
-      padding:14px 16px;
-      font-weight:750;
-      letter-spacing:.2px;
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      transition: transform .05s ease, background .2s ease, border-color .2s ease;
-      user-select:none;
-      min-height:48px;
-    }
-    .btn:active{transform: translateY(1px)}
-    .btnPrimary{
-      background: linear-gradient(135deg, rgba(125,211,252,.95), rgba(56,189,248,.85));
-      color:#05101A;
-      box-shadow: 0 18px 40px rgba(56,189,248,.18);
-    }
-    .btnPrimary:hover{filter: brightness(1.02)}
-    .btnGhost{
-      background: rgba(255,255,255,.02);
-      border:1px solid var(--border);
-      color: var(--text);
-    }
-    .btnGhost:hover{
-      background: rgba(255,255,255,.04);
-      border-color: rgba(255,255,255,.14);
-    }
-
-    .micro{
-      color: var(--muted2);
-      font-size: 12.5px;
-      margin:0;
-    }
-    .microStrong{color: var(--muted);}
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:16px;
-      margin-top:16px;
-    }
-    @media (max-width: 780px){
-      .grid2{grid-template-columns: 1fr;}
+    main{
+      max-width:720px;
+      margin:0 auto;
+      padding:16px;
     }
 
     .card{
-      background: linear-gradient(180deg, rgba(12,19,37,.92), rgba(9,14,28,.92));
-      border:1px solid var(--border);
-      border-radius: var(--radius);
-      padding:18px;
-      box-shadow: 0 16px 46px rgba(0,0,0,.42);
-    }
-    .card h2{
-      font-size: 16px;
-      margin:0 0 10px;
-      letter-spacing:.2px;
-    }
-    .card p{margin:0 0 10px; color:var(--muted)}
-    .list{
-      margin:0; padding:0 0 0 18px; color: var(--muted);
-    }
-    .list li{margin:7px 0}
-    .tiny{font-size:12px; color:var(--muted2)}
-
-    .section{
-      margin-top:18px;
-      padding-top:8px;
-    }
-    .sectionTitle{
-      font-size: 18px;
-      margin:0 0 12px;
-      letter-spacing:.2px;
+      background:linear-gradient(180deg,#141d34,#0f172b);
+      border-radius:var(--radius);
+      padding:24px;
+      margin-bottom:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
     }
 
-    .divider{
-      height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
-      margin:18px 0;
-    }
-
-    /* Form area */
-    .formGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:16px;
-      align-items:start;
-    }
-    @media (max-width: 880px){
-      .formGrid{grid-template-columns:1fr}
-    }
-
-    .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
-    label{font-size:13px; color: var(--muted); font-weight:650}
-    input, textarea{
-      background: rgba(255,255,255,.02);
-      color: var(--text);
-      border:1px solid var(--border);
-      border-radius: 14px;
-      padding:12px 12px;
-      font-size: 14.5px;
-    }
-    textarea{min-height:110px; resize:vertical}
-    .hintRow{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
-    .counter{font-size:12px; color: var(--muted2)}
-    .warn{color: var(--warn)}
-    .ok{color: var(--ok)}
-
-    /* chips */
-    .chips{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-top:4px;
-    }
-    .chip{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.02);
-      color: var(--text);
-      padding:10px 12px;
-      border-radius: 999px;
-      font-size:13px;
-      cursor:pointer;
-      user-select:none;
-      transition: background .15s ease, border-color .15s ease, transform .05s ease;
-    }
-    .chip:hover{background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.16)}
-    .chip:active{transform: translateY(1px)}
-    .chip[aria-pressed="true"]{
-      border-color: rgba(125,211,252,.55);
-      background: rgba(125,211,252,.10);
-      box-shadow: 0 0 0 3px rgba(125,211,252,.12);
-    }
-
-    .note{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.015);
-      border-radius: 16px;
-      padding:14px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .note strong{color: var(--text)}
-    .note ul{margin:8px 0 0; padding-left:18px}
-    .note li{margin:6px 0}
-
-    /* FAQ */
-    .faq h3{
+    h1{
+      font-size:1.8rem;
       margin:0 0 8px;
-      font-size: 14px;
-      color: var(--text);
-      letter-spacing:.2px;
     }
-    .faq p{margin:0 0 14px; color: var(--muted)}
-    .faq p:last-child{margin-bottom:0}
+
+    h2{
+      font-size:1.1rem;
+      margin:0 0 8px;
+    }
+
+    p{margin:0 0 10px}
+    .muted{color:var(--muted);font-size:.9rem}
+
+    .badges{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:12px 0;
+    }
+
+    .badge{
+      background:#1a2442;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.75rem;
+      color:#cfe9ff;
+    }
+
+    .btn{
+      display:inline-block;
+      margin-top:14px;
+      background:linear-gradient(135deg,#6ad1ff,#4bb8ff);
+      color:#001018;
+      padding:14px 18px;
+      border-radius:12px;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      text-align:center;
+      width:100%;
+    }
+
+    .btn.secondary{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid #2a3a66;
+      margin-top:10px;
+    }
+
+    ul{
+      padding-left:18px;
+      margin:8px 0 0;
+    }
+
+    li{margin-bottom:6px}
 
     footer{
-      margin-top:22px;
-      padding-top:18px;
-      border-top:1px solid var(--border);
-      color: var(--muted2);
+      text-align:center;
+      font-size:.75rem;
+      color:var(--muted);
+      padding:24px 12px;
     }
-    .footerTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .footerLinks{
-      display:flex; gap:14px; flex-wrap:wrap;
-    }
-    .footerLinks a{
-      color: var(--accent);
-      font-size: 13px;
-      padding:8px 10px;
-      border-radius: 12px;
-      border:1px solid transparent;
-    }
-    .footerLinks a:hover{
-      text-decoration:none;
-      border-color: var(--border);
-      background: rgba(255,255,255,.03);
-    }
-    .footTiny{margin-top:10px; font-size:12px}
-    .footTiny .sep{opacity:.45; padding:0 8px}
 
-    /* Accessiblity: reduce motion */
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      *{transition:none !important}
+    iframe{
+      width:100%;
+      border:none;
+      border-radius:12px;
+      min-height:520px;
+      background:#0b1220;
     }
   </style>
 </head>
 
-<body id="top">
-  <a class="skiplink" href="#content">Zum Inhalt springen</a>
+<body>
 
-  <header class="topbar" aria-label="Kopfbereich">
-    <div class="topbarInner">
-      <div class="brand" aria-label="Marke">
-        <div class="logo" aria-hidden="true"><span class="logoDot"></span></div>
-        <div class="brandText">
-          <div class="brandName">F1rst-Connect by Jan Schmidt</div>
-          <div class="brandSub">Ruhiger Navigator · nächster logischer Schritt</div>
-        </div>
-      </div>
-      <nav class="nav" aria-label="Navigation">
-        <a href="#start">Start</a>
-        <a href="#ablauf">Ablauf</a>
-        <a href="#formular">Formular</a>
-      </nav>
+<header>
+  <strong>F1rst-Connect by Jan Schmidt</strong>
+  <nav>
+    <a href="#ablauf">Ablauf</a> ·
+    <a href="#formular">Formular</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="card">
+    <h1>Sei nicht Teil des Problems.<br>Sei Teil der Lösung.</h1>
+    <p class="muted">
+      Für mich gibt es keine Probleme.  
+      Nur Themen mit einem nächsten logischen Schritt.
+    </p>
+
+    <div class="badges">
+      <span class="badge">1 Thema · 1 Schritt</span>
+      <span class="badge">Klarheit statt Chaos</span>
+      <span class="badge">Win-Win-Win</span>
     </div>
-  </header>
 
-  <main id="content" class="wrap">
-    <!-- HERO -->
-    <section id="start" class="hero" aria-label="Startbereich">
-      <div class="heroGrid">
-        <div class="panel">
-          <h1 class="h1">Sei nicht Teil des Problems.<br>Sei Teil der Lösung.</h1>
-          <p class="lead">
-            Für mich gibt es keine Probleme – nur Themen und Herausforderungen.
-            Ich ermittle dir den <strong>nächsten natürlichen, logischen Schritt</strong>.
-            Einmalig kostenlos. Danach: bezahlte Ausarbeitung, wenn du willst.
-          </p>
+    <a href="#formular" class="btn">Kostenlosen nächsten Schritt erhalten</a>
+    <a href="#ablauf" class="btn secondary">Ablauf ansehen</a>
 
-          <div class="tagRow" aria-label="Merkmale">
-            <span class="tag"><span class="tagDot" aria-hidden="true"></span> Klarheit statt Chaos</span>
-            <span class="tag"><span class="tagDot" aria-hidden="true"></span> 1 Thema · 1 Schritt</span>
-            <span class="tag"><span class="tagDot" aria-hidden="true"></span> Win-Win-Win</span>
-          </div>
+    <p class="muted" style="margin-top:10px">
+      Kein Verkauf. Keine Verpflichtung. Ein klarer nächster Schritt.
+    </p>
+  </section>
 
-          <div class="divider" aria-hidden="true"></div>
+  <!-- SO FUNKTIONIERTS -->
+  <section id="ablauf" class="card">
+    <h2>So funktioniert’s</h2>
+    <ol>
+      <li>Du beschreibst <strong>ein Thema</strong>.</li>
+      <li>Ich liefere den <strong>nächsten logischen Schritt</strong>.</li>
+      <li>Du setzt um – danach entscheidest du.</li>
+    </ol>
 
-          <div class="btnRow" aria-label="Hauptaktionen">
-            <a class="btn btnPrimary" href="#formular" role="button" aria-label="Zum Formular springen">
-              Kostenlosen nächsten Schritt erhalten
-            </a>
-            <a class="btn btnGhost" href="#ablauf" role="button" aria-label="Ablauf ansehen">
-              Ablauf ansehen
-            </a>
-          </div>
+    <p class="muted" style="margin-top:8px">
+      Hinweis: Ein kostenloser nächster Schritt pro Person.  
+      Weitere Zusammenarbeit ist kostenpflichtig.
+    </p>
+  </section>
 
-          <p class="micro" style="margin-top:10px;">
-            <span class="microStrong">Kein Verkauf. Keine Verpflichtung.</span> Ein klarer nächster Schritt.
-          </p>
-        </div>
+  <!-- ARBEITSWEISE -->
+  <section class="card">
+    <h2>Arbeitsweise</h2>
+    <ul>
+      <li>Ruhig, strukturiert, ehrlich</li>
+      <li>Keine Spielchen, kein Up-Sell-Druck</li>
+      <li>Orientierung ist einmalig – Umsetzung ist Arbeit</li>
+    </ul>
+  </section>
 
-        <aside class="panel ctaBox" aria-label="Kurzüberblick">
-          <div>
-            <h2 class="sectionTitle" style="margin-top:0;">So funktioniert’s</h2>
-            <ol class="list">
-              <li>Du beschreibst <strong>ein</strong> Thema.</li>
-              <li>Ich liefere den <strong>nächsten logischen Schritt</strong>.</li>
-              <li>Du setzt um – danach entscheiden wir, ob es weitergeht.</li>
-            </ol>
-          </div>
+  <!-- ÜBER MICH -->
+  <section class="card">
+    <h2>Wer hier denkt und entscheidet</h2>
+    <p>
+      Ich arbeite mit Klarheit, Struktur und Entscheidungen.
+    </p>
 
-          <div class="note" aria-label="Hinweis">
-            <strong>Hinweis:</strong> Ein kostenloser nächster Schritt pro Person.
-            Weitere Zusammenarbeit ist kostenpflichtig.
-          </div>
+    <ul>
+      <li>Ausbildung zum Bürokaufmann</li>
+      <li>Callcenter & Vertrieb: ca. 2 Jahre</li>
+      <li>D2D / Direktvertrieb: 09/2008 – 01/2025</li>
+      <li>Organisations- & Führungsverantwortung (Teams/Standorte)</li>
+      <li>IHK: zertifizierter Salespartner im Direktvertrieb</li>
+      <li>Gewerbe aktiv: <strong>F1rst-Connect by Jan Schmidt</strong></li>
+    </ul>
+  </section>
 
-          <p class="tiny" style="margin:0;">
-            Transparenz: Wenn ein Thema unfokussiert ist oder wie „alles auf einmal“ wirkt, stoppe ich das direkt.
-            Fokus schlägt Chaos.
-          </p>
-        </aside>
-      </div>
-    </section>
+  <!-- FORMULAR -->
+  <section id="formular" class="card">
+    <h2>Kostenloser nächster Schritt</h2>
+    <p class="muted">
+      Beschreibe dein Thema kurz und klar (2–4 Sätze reichen).
+    </p>
 
-    <!-- ABLAUF + THEMENBEISPIELE -->
-    <section id="ablauf" class="section" aria-label="Ablaufbereich">
-      <div class="grid2">
-        <div class="card">
-          <h2>Ablauf</h2>
-          <p>
-            Du bekommst nicht „Motivation“. Du bekommst eine Entscheidung + Handlung, die real umsetzbar ist.
-          </p>
-          <ul class="list">
-            <li><strong>Ein Thema</strong> auswählen oder kurz formulieren.</li>
-            <li><strong>2–4 Sätze</strong> Kontext (keine Romane, keine Listen).</li>
-            <li>Ich liefere <strong>1 Schritt</strong>: klar, machbar, ohne Overkill.</li>
-          </ul>
-        </div>
+    <!-- TALLY FORM -->
+    <!-- HIER SPÄTER EINFACH DIE URL AUSTAUSCHEN -->
+    <iframe 
+      data-tally-src="https://tally.so/r/PLACEHOLDER"
+      loading="lazy">
+    </iframe>
 
-        <div class="card">
-          <h2>Arbeitsweise</h2>
-          <p>
-            Ruhig, strukturiert, ehrlich. Wenn etwas nicht passt, sag ich’s. Wenn es passt, bekommst du Führung.
-          </p>
-          <ul class="list">
-            <li>Keine Spielchen, keine Up-Sell-Masche.</li>
-            <li>Orientierung einmalig, Umsetzung ist Arbeit.</li>
-            <li>Win-Win-Win: Nutzer · Partner/Institutionen · System.</li>
-          </ul>
-        </div>
-      </div>
+    <p class="muted" style="margin-top:8px">
+      Technisch abgesichert: 1 Antwort pro Person.
+    </p>
+  </section>
 
-      <div class="grid2" style="margin-top:16px;">
-        <div class="card">
-          <h2>Beispiele für Themen</h2>
-          <p class="tiny">Du kannst später im Formular anklicken oder frei formulieren.</p>
-          <ul class="list">
-            <li><strong>Privat:</strong> Entscheidung treffen · Überforderung ordnen · Neustart</li>
-            <li><strong>Business/Startup:</strong> Angebot schärfen · Priorisieren · nächster Hebel</li>
-            <li><strong>Projekt/Kreativ:</strong> festgefahren · Startpunkt · Struktur</li>
-            <li><strong>Organisation/System:</strong> Prozesse vereinfachen · Verantwortung klären</li>
-          </ul>
-        </div>
+</main>
 
-        <div class="card">
-          <h2>Wer hier denkt und entscheidet</h2>
-          <p>
-            Ich arbeite nicht mit Problemen. Ich arbeite mit Klarheit, Struktur und dem nächsten logischen Schritt.
-          </p>
-          <p class="tiny" style="margin-top:10px;">
-            <strong>Beruflicher Hintergrund unter anderem im Direktvertrieb und in der Organisationsverantwortung.</strong>
-          </p>
-          <ul class="list">
-            <li>Ausbildung zum Bürokaufmann</li>
-            <li>Vertrieb/Callcenter-Praxis (Gesprächsführung, Abschlüsse)</li>
-            <li>Organisations- & Führungsverantwortung (u. a. Standort/Teams)</li>
-            <li>IHK: zertifizierter Salespartner im Direktvertrieb</li>
-            <li>Gewerbe aktiv: <strong>F1rst-Connect by Jan Schmidt</strong> (seit 03.05.2022)</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+<footer>
+  Created by: F1rst-Connect by Jan Schmidt<br>
+  Win-Win-Win: Nutzer · Partner/Institutionen · System
+</footer>
 
-    <!-- FORMULAR -->
-    <section id="formular" class="section" aria-label="Formularbereich">
-      <div class="card">
-        <h2 class="sectionTitle" style="margin-top:0;">Kostenloser nächster Schritt</h2>
-        <p class="tiny" style="margin-top:-6px;">
-          Ein Thema. Ein Fokus. Ein Schritt.
-        </p>
+<!-- TALLY SCRIPT -->
+<script>
+  var d=document,w="https://tally.so/widgets/embed.js";
+  var s=d.createElement("script");
+  s.src=w;s.async=true;
+  d.body.appendChild(s);
+</script>
 
-        <div class="divider" aria-hidden="true"></div>
-
-        <div class="formGrid">
-          <!-- LEFT: INPUT -->
-          <div>
-            <form id="nextStepForm" onsubmit="return false;" aria-label="Next Step Formular">
-              <div class="field">
-                <label for="topicCategory">Thema auswählen (Pflicht)</label>
-                <input id="topicCategory" name="topicCategory" type="text" placeholder="Klicke unten eine Kategorie an…" readonly aria-readonly="true" />
-                <div class="chips" role="group" aria-label="Themen-Kategorien">
-                  <button type="button" class="chip" data-topic="Privat" aria-pressed="false">Privat</button>
-                  <button type="button" class="chip" data-topic="Business/Startup" aria-pressed="false">Business/Startup</button>
-                  <button type="button" class="chip" data-topic="Projekt/Kreativ" aria-pressed="false">Projekt/Kreativ</button>
-                  <button type="button" class="chip" data-topic="Organisation/System" aria-pressed="false">Organisation/System</button>
-                </div>
-                <div class="hintRow">
-                  <span class="tiny">Nur eine Auswahl möglich.</span>
-                  <span class="tiny ok" id="topicOk" style="display:none;">✔ Kategorie gesetzt</span>
-                </div>
-              </div>
-
-              <div class="field">
-                <label for="topicText">Kurzbeschreibung (2–4 Sätze, max. 600 Zeichen)</label>
-                <textarea id="topicText" name="topicText" maxlength="600" placeholder="Beschreibe dein Thema kurz. Kein Roman, keine Liste."></textarea>
-                <div class="hintRow">
-                  <span class="tiny">Tipp: Schreib so, dass man’s in 20 Sekunden versteht.</span>
-                  <span class="counter" id="c1">0/600</span>
-                </div>
-              </div>
-
-              <div class="field">
-                <label for="goalText">Ziel/Erwartung (max. 300 Zeichen)</label>
-                <textarea id="goalText" name="goalText" maxlength="300" placeholder="Was soll sich als Nächstes klären oder bewegen?"></textarea>
-                <div class="hintRow">
-                  <span class="tiny">Ein Satz reicht oft.</span>
-                  <span class="counter" id="c2">0/300</span>
-                </div>
-              </div>
-
-              <div class="field">
-                <label for="email">E-Mail (Pflicht)</label>
-                <input id="email" name="email" type="email" placeholder="name@email.de" autocomplete="email" />
-                <p class="tiny" style="margin:0;">Nur zur Zustellung des Ergebnisses. Kein Newsletter.</p>
-              </div>
-
-              <div class="field">
-                <label>
-                  <input id="confirmOnce" type="checkbox" />
-                  <span class="tiny" style="color:var(--muted); font-weight:650;">
-                    Ich bestätige, dass ich diesen kostenlosen Schritt noch nicht erhalten habe.
-                  </span>
-                </label>
-              </div>
-
-              <div class="btnRow" style="margin-top:10px;">
-                <button class="btn btnPrimary" type="submit" id="submitBtn" aria-label="Kostenlosen nächsten Schritt anfordern">
-                  Kostenlosen nächsten Schritt anfordern
-                </button>
-                <a class="btn btnGhost" href="#top" role="button" aria-label="Zurück nach oben">
-                  Zurück nach oben
-                </a>
-              </div>
-
-              <p class="micro" style="margin-top:10px;">
-                <span class="microStrong">Kein Verkauf. Keine Verpflichtung.</span> Ein klarer nächster Schritt.
-              </p>
-
-              <p class="tiny" style="margin-top:10px;">
-                Technisch wird das als Nächstes mit einem echten Formular verbunden (Google Forms / Tally) inkl. 1-Antwort-Regel.
-              </p>
-
-              <div class="note" style="margin-top:12px;">
-                <strong>Regel:</strong> Der kostenlose Schritt ist einmalig pro Person und Thema.<br>
-                <span class="tiny">Mehrfachanfragen oder Sammelthemen werden nicht bearbeitet.</span>
-              </div>
-            </form>
-          </div>
-
-          <!-- RIGHT: FAQ -->
-          <div class="card faq" style="height:100%;">
-            <h2 class="sectionTitle" style="margin-top:0;">FAQ</h2>
-
-            <h3>Warum nur ein kostenloser Schritt?</h3>
-            <p>Weil Orientierung einmalig ist. Alles danach ist Umsetzung.</p>
-
-            <h3>Was, wenn ich den Schritt umgesetzt habe und den nächsten will?</h3>
-            <p>Perfekt. Dann starten wir die Ausarbeitung (bezahlt).</p>
-
-            <h3>Mehrere Themen?</h3>
-            <p>Wähle eins. Fokus schlägt Chaos.</p>
-
-            <div class="divider" aria-hidden="true"></div>
-
-            <p class="tiny" style="margin:0;">
-              Wenn du unsicher bist, wähle die Kategorie, die am ehesten passt – und beschreibe kurz den Kern.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer aria-label="Fußbereich">
-      <div class="footerTop">
-        <div><strong style="color:var(--text);">Created by:</strong> F1rst-Connect by Jan Schmidt</div>
-        <div class="footerLinks" aria-label="Footer Links">
-          <a href="#start">Start</a>
-          <a href="#ablauf">Ablauf</a>
-          <a href="#formular">Formular</a>
-          <a href="/impressum.html">Impressum</a>
-          <a href="/datenschutz.html">Datenschutz</a>
-        </div>
-      </div>
-
-      <div class="footTiny">
-        <span>Win-Win-Win: Nutzer</span><span class="sep">•</span>
-        <span>Partner/Institutionen</span><span class="sep">•</span>
-        <span>System</span>
-      </div>
-
-      <div class="footTiny" style="margin-top:6px;">
-        Gewerbe aktiv · Deutschland
-      </div>
-    </footer>
-  </main>
-
-  <script>
-    // Chips -> single select
-    const chips = Array.from(document.querySelectorAll('.chip'));
-    const topicCategory = document.getElementById('topicCategory');
-    const topicOk = document.getElementById('topicOk');
-
-    chips.forEach(btn => {
-      btn.addEventListener('click', () => {
-        chips.forEach(b => b.setAttribute('aria-pressed', 'false'));
-        btn.setAttribute('aria-pressed', 'true');
-        topicCategory.value = btn.dataset.topic;
-        topicOk.style.display = 'inline';
-      });
-    });
-
-    // Counters + gentle warning color near limits
-    function bindCounter(textareaId, counterId, limit){
-      const ta = document.getElementById(textareaId);
-      const c = document.getElementById(counterId);
-      const update = () => {
-        const len = ta.value.length;
-        c.textContent = `${len}/${limit}`;
-        c.classList.remove('warn');
-        if (len > Math.floor(limit * 0.75)) c.classList.add('warn');
-      };
-      ta.addEventListener('input', update);
-      update();
-    }
-    bindCounter('topicText','c1',600);
-    bindCounter('goalText','c2',300);
-
-    // Demo submit -> client-side validation only (no backend yet)
-    const submitBtn = document.getElementById('submitBtn');
-    const form = document.getElementById('nextStepForm');
-
-    form.addEventListener('submit', () => {
-      const category = (topicCategory.value || '').trim();
-      const topic = (document.getElementById('topicText').value || '').trim();
-      const goal = (document.getElementById('goalText').value || '').trim();
-      const email = (document.getElementById('email').value || '').trim();
-      const confirmOnce = document.getElementById('confirmOnce').checked;
-
-      // Minimal validation (calm, not aggressive)
-      const errors = [];
-      if (!category) errors.push('Bitte eine Kategorie wählen.');
-      if (topic.length < 10) errors.push('Bitte Kurzbeschreibung ergänzen (mind. 2–4 Sätze).');
-      if (goal.length < 5) errors.push('Bitte Ziel/Erwartung ergänzen.');
-      if (!email || !email.includes('@')) errors.push('Bitte gültige E-Mail eintragen.');
-      if (!confirmOnce) errors.push('Bitte die Einmaligkeit bestätigen.');
-
-      if (errors.length){
-        alert(errors.join('\n'));
-        return;
-      }
-
-      alert(
-        'Danke. (Demo)\n\n' +
-        'Formular ist technisch noch nicht live verbunden.\n' +
-        'Nächster Schritt: Google Forms/Tally anbinden inkl. 1-Antwort-Regel.'
-      );
-    });
-  </script>
 </body>
 </html>
-```0

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Formular – F1rst-Connect by Jan Schmidt</title>
-  <meta name="description" content="Kostenloser nächster logischer Schritt – einmalig. Danach bezahlte Ausarbeitung." />
+  <meta name="description" content="Kostenloser nächster logischer Schritt (1x). Weitere Schritte nur für angemeldete Nutzer nach Freigabe." />
 
   <style>
     :root{
@@ -23,25 +23,24 @@
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
     .wrap{max-width:980px; margin:0 auto; padding:18px 14px 60px}
-    .top{
+    header{
       position:sticky; top:0; z-index:10;
       backdrop-filter: blur(12px);
       background: rgba(11,18,32,.65);
       border-bottom:1px solid var(--line);
     }
-    .topin{
+    .head{
       max-width:980px; margin:0 auto; padding:12px 14px;
       display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap;
     }
-    .brand{display:flex; flex-direction:column; gap:2px}
-    .brand strong{font-size:16px}
-    .brand span{font-size:12.5px; color:var(--muted)}
-    .nav{display:flex; gap:10px; flex-wrap:wrap}
-    .nav a{
+    .brand strong{display:block; font-size:16px}
+    .brand span{display:block; font-size:12.5px; color:var(--muted)}
+    nav{display:flex; gap:10px; flex-wrap:wrap}
+    nav a{
       color:var(--text); opacity:.9; font-size:13.5px;
       padding:8px 10px; border-radius:12px; border:1px solid transparent;
     }
-    .nav a:hover{border-color:var(--line); background:rgba(255,255,255,.04); text-decoration:none}
+    nav a:hover{border-color:var(--line); background:rgba(255,255,255,.04); text-decoration:none}
 
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
@@ -51,47 +50,26 @@
     h1{margin:0 0 8px; font-size:22px}
     h2{margin:0 0 10px; font-size:18px}
     .muted{color:var(--muted)}
-    .grid{display:grid; gap:12px; grid-template-columns:1fr}
-    @media(min-width:900px){ .grid{grid-template-columns: .95fr 1.05fr} }
-
-    label{display:block; margin:10px 0 6px; font-size:13px; color:rgba(234,241,255,.85)}
-    input, textarea{
-      width:100%; padding:12px 12px; border-radius:16px;
-      border:1px solid var(--line); background: rgba(10,18,33,.55);
-      color:var(--text); outline:none; font-size:14px;
-    }
-    textarea{min-height:150px; resize:vertical}
-    .row{display:grid; gap:10px; grid-template-columns:1fr}
-    @media(min-width:560px){ .row{grid-template-columns:1fr 1fr} }
-
-    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .btn{
-      border:1px solid var(--line); background:rgba(255,255,255,.04);
-      color:var(--text); padding:12px 14px; border-radius:14px;
-      font-weight:800; cursor:pointer;
-    }
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(108,200,255,.9), rgba(108,200,255,.62));
-      color:#071021; border-color: rgba(108,200,255,.35);
-    }
-    .btn:hover{filter:brightness(1.06)}
-
-    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0}
-    .tab{
-      padding:10px 12px; border-radius:14px; border:1px solid var(--line);
-      background:rgba(255,255,255,.03); cursor:pointer; font-weight:800;
-    }
-    .tab.active{border-color:rgba(108,200,255,.55); background:rgba(108,200,255,.08)}
-    .embed{
-      width:100%; min-height:620px;
-      border:1px solid var(--line); border-radius:16px; background:rgba(0,0,0,.12);
-    }
     .note{
       margin-top:12px; padding:12px; border-radius:16px;
       border:1px solid var(--line); background:rgba(255,255,255,.03);
       color:var(--muted); font-size:13px;
     }
-    .footer{
+    .grid{display:grid; gap:12px}
+    @media(min-width:900px){ .grid{grid-template-columns: 1fr 1fr} }
+
+    .embed{
+      width:100%; min-height:720px;
+      border:1px solid var(--line); border-radius:16px; background:rgba(0,0,0,.12);
+    }
+    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0}
+    .tab{
+      padding:10px 12px; border-radius:14px; border:1px solid var(--line);
+      background:rgba(255,255,255,.03); cursor:pointer; font-weight:800; color:var(--text);
+    }
+    .tab.active{border-color:rgba(108,200,255,.55); background:rgba(108,200,255,.08)}
+    .tiny{font-size:12.5px; color:rgba(234,241,255,.7)}
+    footer{
       margin-top:16px; padding-top:14px; border-top:1px solid var(--line);
       color:rgba(234,241,255,.7); font-size:12.5px;
       display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; align-items:center;
@@ -100,13 +78,13 @@
 </head>
 
 <body>
-  <header class="top">
-    <div class="topin">
+  <header>
+    <div class="head">
       <div class="brand">
         <strong>F1rst-Connect by Jan Schmidt</strong>
-        <span>Kostenloser Next Step · einmalig · danach bezahlte Ausarbeitung</span>
+        <span>Formular · 1x kostenlos · danach Member-only</span>
       </div>
-      <nav class="nav" aria-label="Navigation">
+      <nav aria-label="Navigation">
         <a href="index.html">Start</a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
@@ -116,138 +94,67 @@
 
   <main class="wrap">
     <section class="card">
-      <h1>Formular: kostenloser nächster Schritt</h1>
+      <h1>Kostenloser nächster Schritt (1x)</h1>
       <p class="muted" style="margin:0">
-        2–4 Sätze reichen. Fokus schlägt Chaos. Ein Thema = ein Schritt.
+        Dieses Formular ist so gedacht: <b>nur angemeldete Google-Nutzer</b>, E-Mail wird erfasst,
+        und <b>max. 1 Antwort</b>.
       </p>
 
-      <div class="grid" style="margin-top:12px;">
-        <!-- LEFT: helper box -->
-        <div class="card" style="box-shadow:none; background:rgba(15,26,46,.55);">
-          <h2>Text vorbereiten (optional)</h2>
-
-          <div class="row">
-            <div>
-              <label for="name">Name (optional)</label>
-              <input id="name" type="text" placeholder="Vorname reicht" />
-            </div>
-            <div>
-              <label for="contact">Kontakt (optional)</label>
-              <input id="contact" type="text" placeholder="E-Mail oder Telegram-Handle" />
-            </div>
-          </div>
-
-          <label for="topic">Thema</label>
-          <input id="topic" type="text" placeholder="z.B. Finanzen & Ordnung" />
-
-          <label for="msg">Kurzbeschreibung</label>
-          <textarea id="msg" placeholder="Was ist los – und was soll am Ende besser sein?"></textarea>
-
-          <div class="btns">
-            <button class="btn primary" id="copyBtn" type="button">📋 Kopieren</button>
-            <button class="btn" id="pasteHintBtn" type="button">🧩 Prefill aus Startseite ziehen</button>
-            <button class="btn" id="clearBtn" type="button">🧽 Leeren</button>
-          </div>
-
-          <div class="note">
-            Anti-Missbrauch (1 kostenloser Next Step pro Person) setzt du im Tool durch:
-            <br>• <b>Tally</b>: Limit / Captcha / “1 submission per device” / optional E-Mail-Verifizierung
-            <br>• <b>Google Forms</b>: “1 Antwort” + ggf. Login/Email-Collect (je nach Setup)
-          </div>
-        </div>
-
-        <!-- RIGHT: embeds -->
-        <div class="card" style="box-shadow:none; background:rgba(15,26,46,.55);">
-          <h2>Einreichen</h2>
-          <p class="muted" style="margin:0 0 10px;">Wähle: Tally oder Google Forms.</p>
-
-          <div class="tabs">
-            <button class="tab active" id="tabTally" type="button">Tally</button>
-            <button class="tab" id="tabGForms" type="button">Google Forms</button>
-          </div>
-
-          <!-- ✅ 1) TALLY EMBED: ersetze DEIN_TALLY_CODE -->
-          <iframe id="tallyFrame" class="embed"
-            title="Tally Formular"
-            src="https://tally.so/r/DEIN_TALLY_CODE_HIER"
-            loading="lazy"></iframe>
-
-          <!-- ✅ 2) GOOGLE FORMS EMBED: ersetze DEIN_FORM_ID -->
-          <iframe id="gformsFrame" class="embed"
-            title="Google Formular"
-            src="https://docs.google.com/forms/d/e/DEIN_FORM_ID/viewform?embedded=true"
-            loading="lazy"
-            style="display:none;"></iframe>
-
-          <div class="note">
-            Wenn du willst, bau ich dir danach eine <b>danke.html</b> (Conversion sauber) + Tracking-frei.
-          </div>
-        </div>
+      <div class="note">
+        <b>Member-Gate:</b> Weitere Schritte gibt’s nur für <b>angemeldete Nutzer</b> nach Freigabe/Bezahlung.
+        Den Member-Link bekommst du per E-Mail – er steht nicht öffentlich auf der Website.
       </div>
 
-      <div class="footer">
+      <div class="tabs" aria-label="Formular Auswahl">
+        <button class="tab active" id="tabFree" type="button">Free (Form A)</button>
+        <button class="tab" id="tabMember" type="button">Member (Form B)</button>
+      </div>
+
+      <!-- ✅ FORM A (FREE) – HIER DEIN GOOGLE FORMS EMBED-SRC REIN -->
+      <iframe id="freeFrame" class="embed"
+        title="Free Formular (Form A)"
+        src="https://docs.google.com/forms/d/e/DEIN_FORM_A_ID/viewform?embedded=true"
+        loading="lazy"></iframe>
+
+      <!-- ✅ FORM B (MEMBER) – HIER DEIN GOOGLE FORMS EMBED-SRC REIN -->
+      <iframe id="memberFrame" class="embed"
+        title="Member Formular (Form B)"
+        src="https://docs.google.com/forms/d/e/DEIN_FORM_B_ID/viewform?embedded=true"
+        loading="lazy"
+        style="display:none;"></iframe>
+
+      <p class="tiny" style="margin-top:10px">
+        Hinweis: Form B bitte NICHT im Menü verlinken, wenn’s wirklich Member-only bleiben soll.
+        (Du kannst den Tab auch entfernen und nur per E-Mail schicken.)
+      </p>
+
+      <footer>
         <div><b>Created by:</b> F1rst-Connect by Jan Schmidt</div>
         <div>
-          <a href="index.html">Start</a> ·
-          <a href="impressum.html">Impressum</a> ·
-          <a href="datenschutz.html">Datenschutz</a>
+          <a href="index.html">Start</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
         </div>
-      </div>
+      </footer>
     </section>
   </main>
 
   <script>
-    // Tabs
-    const tabT = document.getElementById("tabTally");
-    const tabG = document.getElementById("tabGForms");
-    const fT = document.getElementById("tallyFrame");
-    const fG = document.getElementById("gformsFrame");
+    const tabFree = document.getElementById("tabFree");
+    const tabMember = document.getElementById("tabMember");
+    const freeFrame = document.getElementById("freeFrame");
+    const memberFrame = document.getElementById("memberFrame");
 
-    tabT.addEventListener("click", () => {
-      tabT.classList.add("active"); tabG.classList.remove("active");
-      fT.style.display = "block"; fG.style.display = "none";
-    });
-    tabG.addEventListener("click", () => {
-      tabG.classList.add("active"); tabT.classList.remove("active");
-      fG.style.display = "block"; fT.style.display = "none";
+    tabFree.addEventListener("click", () => {
+      tabFree.classList.add("active");
+      tabMember.classList.remove("active");
+      freeFrame.style.display = "block";
+      memberFrame.style.display = "none";
     });
 
-    // Prefill from index topics (if you used localStorage there)
-    document.getElementById("pasteHintBtn").addEventListener("click", () => {
-      try{
-        const v = localStorage.getItem("f1rst_topic_prefill");
-        if(v){ document.getElementById("msg").value = v; }
-        else { alert("Kein Prefill gefunden. (Wenn du Topics klickst, muss index.html das speichern.)"); }
-      }catch(e){
-        alert("Prefill ging nicht (Browser blockt Storage). Kein Stress.");
-      }
-    });
-
-    // Copy helper
-    document.getElementById("copyBtn").addEventListener("click", async () => {
-      const name = document.getElementById("name").value.trim();
-      const contact = document.getElementById("contact").value.trim();
-      const topic = document.getElementById("topic").value.trim();
-      const msg = document.getElementById("msg").value.trim();
-
-      const payload =
-`Name: ${name || "-"}
-Kontakt: ${contact || "-"}
-Thema: ${topic || "-"}
-
-Beschreibung:
-${msg || "-"}`;
-
-      try{
-        await navigator.clipboard.writeText(payload);
-        alert("Kopiert. Jetzt in Tally/Google Forms einfügen.");
-      }catch(e){
-        alert("Clipboard blockiert. Markier den Text manuell und kopier.");
-      }
-    });
-
-    document.getElementById("clearBtn").addEventListener("click", () => {
-      ["name","contact","topic","msg"].forEach(id => document.getElementById(id).value = "");
+    tabMember.addEventListener("click", () => {
+      tabMember.classList.add("active");
+      tabFree.classList.remove("active");
+      memberFrame.style.display = "block";
+      freeFrame.style.display = "none";
     });
   </script>
 </body>

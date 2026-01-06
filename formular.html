@@ -2,160 +2,178 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Formular – F1rst-Connect by Jan Schmidt</title>
-  <meta name="description" content="Kostenloser nächster logischer Schritt (1x). Weitere Schritte nur für angemeldete Nutzer nach Freigabe." />
-
+  <meta name="description" content="Kostenloser nächster Schritt – 1 Antwort pro Person. Anmeldung erforderlich.">
   <style>
     :root{
-      --bg:#0b1220; --panel:#0f1a2e; --text:#eaf1ff; --muted:#b6c2de;
-      --line:rgba(255,255,255,.10); --accent:#6cc8ff; --shadow:0 16px 40px rgba(0,0,0,.35);
-      --r:20px;
+      --bg:#070b12; --card:#0d1526; --card2:#0a1222;
+      --text:#e9eefb; --muted:#a9b4cc; --line:rgba(255,255,255,.08);
+      --accent:#7fd0ff; --accent2:#2b96ff;
+      --radius:22px;
     }
     *{box-sizing:border-box}
     body{
-      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background: radial-gradient(1100px 650px at 20% -10%, rgba(108,200,255,.22), transparent 60%),
-                  radial-gradient(900px 600px at 110% 20%, rgba(122,240,197,.16), transparent 55%),
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1100px 500px at 20% 0%, rgba(127,208,255,.16), transparent 60%),
+                  radial-gradient(900px 420px at 90% 10%, rgba(43,150,255,.14), transparent 60%),
                   var(--bg);
-      color:var(--text); line-height:1.45;
+      color:var(--text);
     }
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
-    .wrap{max-width:980px; margin:0 auto; padding:18px 14px 60px}
-    header{
-      position:sticky; top:0; z-index:10;
-      backdrop-filter: blur(12px);
-      background: rgba(11,18,32,.65);
-      border-bottom:1px solid var(--line);
+    .wrap{max-width:980px; margin:0 auto; padding:20px 14px 40px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px 14px; border:1px solid var(--line); border-radius:var(--radius);
+      background:rgba(13,21,38,.65); backdrop-filter: blur(10px);
+      position:sticky; top:10px; z-index:20;
     }
-    .head{
-      max-width:980px; margin:0 auto; padding:12px 14px;
-      display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    .brand{display:flex; flex-direction:column; gap:4px; min-width:0}
+    .brand b{font-size:18px; letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .brand span{font-size:12px; color:var(--muted)}
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .pill{
+      padding:10px 12px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(10,18,34,.55);
+      font-size:14px;
     }
-    .brand strong{display:block; font-size:16px}
-    .brand span{display:block; font-size:12.5px; color:var(--muted)}
-    nav{display:flex; gap:10px; flex-wrap:wrap}
-    nav a{
-      color:var(--text); opacity:.9; font-size:13.5px;
-      padding:8px 10px; border-radius:12px; border:1px solid transparent;
-    }
-    nav a:hover{border-color:var(--line); background:rgba(255,255,255,.04); text-decoration:none}
-
+    .pill.active{border-color:rgba(127,208,255,.35); background:rgba(127,208,255,.10)}
+    .grid{display:grid; gap:14px; margin-top:14px}
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
-      border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow);
-      padding:16px;
+      border:1px solid var(--line); border-radius:var(--radius);
+      background:rgba(13,21,38,.55); backdrop-filter: blur(10px);
+      padding:18px;
     }
-    h1{margin:0 0 8px; font-size:22px}
-    h2{margin:0 0 10px; font-size:18px}
-    .muted{color:var(--muted)}
+    h1{margin:0 0 6px; font-size:22px}
+    p{margin:8px 0; color:var(--muted); line-height:1.45}
+    .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(10,18,34,.55); color:var(--text); font-size:13px;
+    }
+    .badge i{
+      width:8px; height:8px; border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(127,208,255,.15);
+      display:inline-block;
+    }
     .note{
-      margin-top:12px; padding:12px; border-radius:16px;
-      border:1px solid var(--line); background:rgba(255,255,255,.03);
-      color:var(--muted); font-size:13px;
+      margin-top:10px; padding:12px 12px; border-radius:16px;
+      border:1px solid rgba(127,208,255,.20);
+      background:rgba(127,208,255,.08); color:var(--text);
+      font-size:13px;
     }
-    .grid{display:grid; gap:12px}
-    @media(min-width:900px){ .grid{grid-template-columns: 1fr 1fr} }
-
-    .embed{
-      width:100%; min-height:720px;
-      border:1px solid var(--line); border-radius:16px; background:rgba(0,0,0,.12);
+    .iframeBox{
+      margin-top:12px; border:1px solid var(--line); border-radius:var(--radius);
+      overflow:hidden; background:rgba(10,18,34,.55);
     }
-    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0}
-    .tab{
-      padding:10px 12px; border-radius:14px; border:1px solid var(--line);
-      background:rgba(255,255,255,.03); cursor:pointer; font-weight:800; color:var(--text);
+    iframe{width:100%; height:980px; border:0; display:block}
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px; border-radius:14px; border:1px solid var(--line);
+      background:rgba(10,18,34,.55); color:var(--text); font-weight:600;
     }
-    .tab.active{border-color:rgba(108,200,255,.55); background:rgba(108,200,255,.08)}
-    .tiny{font-size:12.5px; color:rgba(234,241,255,.7)}
+    .btn.primary{border-color:rgba(127,208,255,.35); background:rgba(127,208,255,.12)}
+    .mutedSmall{font-size:12px; color:var(--muted)}
     footer{
-      margin-top:16px; padding-top:14px; border-top:1px solid var(--line);
-      color:rgba(234,241,255,.7); font-size:12.5px;
-      display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; align-items:center;
+      margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+      display:flex; flex-direction:column; gap:10px;
+      color:var(--muted);
+    }
+    .footerlinks{display:flex; gap:14px; flex-wrap:wrap}
+    @media (max-width:520px){
+      iframe{height:1060px}
+      .brand b{font-size:16px}
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="head">
+  <div class="wrap">
+    <header class="topbar" id="top">
       <div class="brand">
-        <strong>F1rst-Connect by Jan Schmidt</strong>
-        <span>Formular · 1x kostenlos · danach Member-only</span>
+        <b>F1rst-Connect by Jan Schmidt</b>
+        <span>Ruhiger Navigator · nächster logischer Schritt</span>
       </div>
-      <nav aria-label="Navigation">
-        <a href="index.html">Start</a>
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
+      <nav class="nav" aria-label="Navigation">
+        <a class="pill" href="index.html">Start</a>
+        <a class="pill" href="index.html#ablauf">Ablauf</a>
+        <a class="pill active" href="formular.html">Formular</a>
+        <a class="pill" href="impressum.html">Impressum</a>
+        <a class="pill" href="datenschutz.html">Datenschutz</a>
       </nav>
-    </div>
-  </header>
+    </header>
 
-  <main class="wrap">
-    <section class="card">
-      <h1>Kostenloser nächster Schritt (1x)</h1>
-      <p class="muted" style="margin:0">
-        Dieses Formular ist so gedacht: <b>nur angemeldete Google-Nutzer</b>, E-Mail wird erfasst,
-        und <b>max. 1 Antwort</b>.
-      </p>
+    <main class="grid">
+      <section class="card">
+        <h1>Kostenloser nächster Schritt</h1>
+        <p>Schreib 2–4 Sätze: Thema + Kontext + Ziel. Keine Romane, keine Endlos-Listen. Fokus schlägt Chaos.</p>
 
-      <div class="note">
-        <b>Member-Gate:</b> Weitere Schritte gibt’s nur für <b>angemeldete Nutzer</b> nach Freigabe/Bezahlung.
-        Den Member-Link bekommst du per E-Mail – er steht nicht öffentlich auf der Website.
-      </div>
+        <div class="badges">
+          <span class="badge"><i></i> 1 Thema · 1 Schritt</span>
+          <span class="badge"><i></i> E-Mail verifiziert</span>
+          <span class="badge"><i></i> 1 Antwort pro Person</span>
+        </div>
 
-      <div class="tabs" aria-label="Formular Auswahl">
-        <button class="tab active" id="tabFree" type="button">Free (Form A)</button>
-        <button class="tab" id="tabMember" type="button">Member (Form B)</button>
-      </div>
+        <div class="note">
+          <b>Gate-Regel:</b> Nur angemeldete Nutzer können absenden (Google-Login). Danach ist Weiterarbeit kostenpflichtig.
+        </div>
 
-      <!-- ✅ FORM A (FREE) – HIER DEIN GOOGLE FORMS EMBED-SRC REIN -->
-      <iframe id="freeFrame" class="embed"
-        title="Free Formular (Form A)"
-        src="https://docs.google.com/forms/d/e/DEIN_FORM_A_ID/viewform?embedded=true"
-        loading="lazy"></iframe>
+        <div class="iframeBox" role="region" aria-label="Google Formular (eingebettet)">
+          <!-- FORM A (embed) -->
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSeTjBvaxHlSfsD-P7dgjhqczmT4lLccnXgm7z-KXdIGnKooJw/viewform?embedded=true"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="F1rst-Connect – Kostenloser nächster Schritt (Form A)">
+          </iframe>
+        </div>
 
-      <!-- ✅ FORM B (MEMBER) – HIER DEIN GOOGLE FORMS EMBED-SRC REIN -->
-      <iframe id="memberFrame" class="embed"
-        title="Member Formular (Form B)"
-        src="https://docs.google.com/forms/d/e/DEIN_FORM_B_ID/viewform?embedded=true"
-        loading="lazy"
-        style="display:none;"></iframe>
+        <div class="row">
+          <!-- Fallback: falls iframe zickt -->
+          <a class="btn primary"
+             href="https://docs.google.com/forms/d/e/1FAIpQLSeTjBvaxHlSfsD-P7dgjhqczmT4lLccnXgm7z-KXdIGnKooJw/viewform"
+             target="_blank" rel="noopener">
+            Formular in neuem Tab öffnen
+          </a>
+          <a class="btn" href="#top">Zurück nach oben</a>
+        </div>
 
-      <p class="tiny" style="margin-top:10px">
-        Hinweis: Form B bitte NICHT im Menü verlinken, wenn’s wirklich Member-only bleiben soll.
-        (Du kannst den Tab auch entfernen und nur per E-Mail schicken.)
-      </p>
+        <p class="mutedSmall" style="margin-top:10px">
+          Wenn du „Zugriff verweigert“ siehst: du bist nicht eingeloggt oder das Formular ist auf „nur Organisation“ eingeschränkt.
+        </p>
+      </section>
+
+      <section class="card" aria-label="Weiterer Schritt (gesperrt)">
+        <h1>Weiterer Schritt (nach dem kostenlosen Next Step)</h1>
+        <p>
+          Auf GitHub Pages kann ich das „automatisch freischalten nach E-Mail-Bestätigung“ nur begrenzt machen,
+          weil uns dafür ein Backend fehlt. Der saubere Weg ist:
+        </p>
+        <div class="note">
+          <b>Sauberste Gate-Variante hier:</b> Form A (kostenlos) + Form B (Follow-Up) als separater Link,
+          den du erst rausgibst, wenn du die Person freigibst.
+        </div>
+        <p class="mutedSmall">
+          Sobald du mir den Embed-Link von Form B schickst, setze ich ihn hier als zweite eingebettete Stufe rein.
+        </p>
+      </section>
 
       <footer>
-        <div><b>Created by:</b> F1rst-Connect by Jan Schmidt</div>
-        <div>
-          <a href="index.html">Start</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+        <div><b style="color:var(--text)">Created by:</b> F1rst-Connect by Jan Schmidt</div>
+        <div class="footerlinks">
+          <a href="index.html">Start</a>
+          <a href="index.html#ablauf">Ablauf</a>
+          <a href="formular.html">Formular</a>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
         </div>
+        <div class="mutedSmall">Win-Win-Win: Nutzer · Partner/Institutionen · System</div>
       </footer>
-    </section>
-  </main>
-
-  <script>
-    const tabFree = document.getElementById("tabFree");
-    const tabMember = document.getElementById("tabMember");
-    const freeFrame = document.getElementById("freeFrame");
-    const memberFrame = document.getElementById("memberFrame");
-
-    tabFree.addEventListener("click", () => {
-      tabFree.classList.add("active");
-      tabMember.classList.remove("active");
-      freeFrame.style.display = "block";
-      memberFrame.style.display = "none";
-    });
-
-    tabMember.addEventListener("click", () => {
-      tabMember.classList.add("active");
-      tabFree.classList.remove("active");
-      memberFrame.style.display = "block";
-      freeFrame.style.display = "none";
-    });
-  </script>
+    </main>
+  </div>
 </body>
 </html>

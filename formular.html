@@ -1,179 +1,118 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Formular – F1rst-Connect by Jan Schmidt</title>
-  <meta name="description" content="Kostenloser nächster Schritt – 1 Antwort pro Person. Anmeldung erforderlich.">
+  <meta name="description" content="Kostenloser nächster logischer Schritt – einmalig, nur für angemeldete Nutzer.">
+
   <style>
-    :root{
-      --bg:#070b12; --card:#0d1526; --card2:#0a1222;
-      --text:#e9eefb; --muted:#a9b4cc; --line:rgba(255,255,255,.08);
-      --accent:#7fd0ff; --accent2:#2b96ff;
-      --radius:22px;
-    }
-    *{box-sizing:border-box}
     body{
-      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1100px 500px at 20% 0%, rgba(127,208,255,.16), transparent 60%),
-                  radial-gradient(900px 420px at 90% 10%, rgba(43,150,255,.14), transparent 60%),
-                  var(--bg);
-      color:var(--text);
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:#0b1220;
+      color:#eaf1ff;
     }
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:980px; margin:0 auto; padding:20px 14px 40px}
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:14px 14px; border:1px solid var(--line); border-radius:var(--radius);
-      background:rgba(13,21,38,.65); backdrop-filter: blur(10px);
-      position:sticky; top:10px; z-index:20;
+    a{color:#7fd0ff;text-decoration:none}
+    .wrap{max-width:900px;margin:0 auto;padding:20px 14px}
+    header{
+      position:sticky;top:0;z-index:10;
+      background:rgba(11,18,32,.9);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;
     }
-    .brand{display:flex; flex-direction:column; gap:4px; min-width:0}
-    .brand b{font-size:18px; letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-    .brand span{font-size:12px; color:var(--muted)}
-    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-    .pill{
-      padding:10px 12px; border:1px solid var(--line); border-radius:999px;
-      background:rgba(10,18,34,.55);
-      font-size:14px;
-    }
-    .pill.active{border-color:rgba(127,208,255,.35); background:rgba(127,208,255,.10)}
-    .grid{display:grid; gap:14px; margin-top:14px}
+    header b{font-size:16px}
+    nav a{margin-left:12px;font-size:14px}
     .card{
-      border:1px solid var(--line); border-radius:var(--radius);
-      background:rgba(13,21,38,.55); backdrop-filter: blur(10px);
-      padding:18px;
+      margin-top:16px;
+      background:#0f1a2e;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
     }
-    h1{margin:0 0 6px; font-size:22px}
-    p{margin:8px 0; color:var(--muted); line-height:1.45}
-    .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+    h1{margin:0 0 8px;font-size:22px}
+    p{color:#b6c2de;line-height:1.45}
+    .badges{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
     .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px; border:1px solid var(--line); border-radius:999px;
-      background:rgba(10,18,34,.55); color:var(--text); font-size:13px;
-    }
-    .badge i{
-      width:8px; height:8px; border-radius:50%;
-      background:var(--accent);
-      box-shadow:0 0 0 4px rgba(127,208,255,.15);
-      display:inline-block;
-    }
-    .note{
-      margin-top:10px; padding:12px 12px; border-radius:16px;
-      border:1px solid rgba(127,208,255,.20);
-      background:rgba(127,208,255,.08); color:var(--text);
+      padding:6px 10px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
       font-size:13px;
+      background:rgba(255,255,255,.04);
     }
-    .iframeBox{
-      margin-top:12px; border:1px solid var(--line); border-radius:var(--radius);
-      overflow:hidden; background:rgba(10,18,34,.55);
+    iframe{
+      width:100%;
+      height:1200px;
+      border:0;
+      border-radius:16px;
+      display:block;
     }
-    iframe{width:100%; height:980px; border:0; display:block}
-    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:12px 14px; border-radius:14px; border:1px solid var(--line);
-      background:rgba(10,18,34,.55); color:var(--text); font-weight:600;
-    }
-    .btn.primary{border-color:rgba(127,208,255,.35); background:rgba(127,208,255,.12)}
-    .mutedSmall{font-size:12px; color:var(--muted)}
     footer{
-      margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
-      display:flex; flex-direction:column; gap:10px;
-      color:var(--muted);
-    }
-    .footerlinks{display:flex; gap:14px; flex-wrap:wrap}
-    @media (max-width:520px){
-      iframe{height:1060px}
-      .brand b{font-size:16px}
+      margin-top:20px;
+      padding-top:12px;
+      border-top:1px solid rgba(255,255,255,.08);
+      font-size:12.5px;
+      color:#a9b4cc;
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header class="topbar" id="top">
-      <div class="brand">
-        <b>F1rst-Connect by Jan Schmidt</b>
-        <span>Ruhiger Navigator · nächster logischer Schritt</span>
-      </div>
-      <nav class="nav" aria-label="Navigation">
-        <a class="pill" href="index.html">Start</a>
-        <a class="pill" href="index.html#ablauf">Ablauf</a>
-        <a class="pill active" href="formular.html">Formular</a>
-        <a class="pill" href="impressum.html">Impressum</a>
-        <a class="pill" href="datenschutz.html">Datenschutz</a>
-      </nav>
-    </header>
 
-    <main class="grid">
-      <section class="card">
-        <h1>Kostenloser nächster Schritt</h1>
-        <p>Schreib 2–4 Sätze: Thema + Kontext + Ziel. Keine Romane, keine Endlos-Listen. Fokus schlägt Chaos.</p>
+<header>
+  <b>F1rst-Connect by Jan Schmidt</b>
+  <nav>
+    <a href="index.html">Start</a>
+    <a href="formular.html">Formular</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </nav>
+</header>
 
-        <div class="badges">
-          <span class="badge"><i></i> 1 Thema · 1 Schritt</span>
-          <span class="badge"><i></i> E-Mail verifiziert</span>
-          <span class="badge"><i></i> 1 Antwort pro Person</span>
-        </div>
+<main class="wrap">
 
-        <div class="note">
-          <b>Gate-Regel:</b> Nur angemeldete Nutzer können absenden (Google-Login). Danach ist Weiterarbeit kostenpflichtig.
-        </div>
+  <section class="card">
+    <h1>Kostenloser nächster Schritt</h1>
+    <p>
+      Beschreibe dein Thema in 2–4 Sätzen.  
+      <b>Ein Thema, ein klarer nächster Schritt.</b>
+    </p>
 
-        <div class="iframeBox" role="region" aria-label="Google Formular (eingebettet)">
-          <!-- FORM A (embed) -->
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSeTjBvaxHlSfsD-P7dgjhqczmT4lLccnXgm7z-KXdIGnKooJw/viewform?embedded=true"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="F1rst-Connect – Kostenloser nächster Schritt (Form A)">
-          </iframe>
-        </div>
+    <div class="badges">
+      <span class="badge">✔ Anmeldung erforderlich</span>
+      <span class="badge">✔ E-Mail verifiziert</span>
+      <span class="badge">✔ 1 Antwort pro Person</span>
+    </div>
 
-        <div class="row">
-          <!-- Fallback: falls iframe zickt -->
-          <a class="btn primary"
-             href="https://docs.google.com/forms/d/e/1FAIpQLSeTjBvaxHlSfsD-P7dgjhqczmT4lLccnXgm7z-KXdIGnKooJw/viewform"
-             target="_blank" rel="noopener">
-            Formular in neuem Tab öffnen
-          </a>
-          <a class="btn" href="#top">Zurück nach oben</a>
-        </div>
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSeTjBvaxHlSfsD-P7dgjhqczmT4lLccnXgm7z-KXdIGnKooJw/viewform?embedded=true"
+      loading="lazy"
+      referrerpolicy="no-referrer"
+      title="F1rst-Connect – Kostenloser nächster Schritt">
+    </iframe>
 
-        <p class="mutedSmall" style="margin-top:10px">
-          Wenn du „Zugriff verweigert“ siehst: du bist nicht eingeloggt oder das Formular ist auf „nur Organisation“ eingeschränkt.
-        </p>
-      </section>
+    <p style="font-size:13px;color:#a9b4cc;margin-top:10px">
+      Hinweis: Wenn du keinen Zugriff hast, bist du nicht mit Google angemeldet
+      oder das Formular ist auf Organisation beschränkt.
+    </p>
+  </section>
 
-      <section class="card" aria-label="Weiterer Schritt (gesperrt)">
-        <h1>Weiterer Schritt (nach dem kostenlosen Next Step)</h1>
-        <p>
-          Auf GitHub Pages kann ich das „automatisch freischalten nach E-Mail-Bestätigung“ nur begrenzt machen,
-          weil uns dafür ein Backend fehlt. Der saubere Weg ist:
-        </p>
-        <div class="note">
-          <b>Sauberste Gate-Variante hier:</b> Form A (kostenlos) + Form B (Follow-Up) als separater Link,
-          den du erst rausgibst, wenn du die Person freigibst.
-        </div>
-        <p class="mutedSmall">
-          Sobald du mir den Embed-Link von Form B schickst, setze ich ihn hier als zweite eingebettete Stufe rein.
-        </p>
-      </section>
+  <section class="card">
+    <h1>Weiterer Schritt</h1>
+    <p>
+      Nach dem kostenlosen Next Step erfolgt die Weiterarbeit
+      <b>nur nach Freigabe / Bezahlung</b>.
+      Der Zugang wird individuell per E-Mail vergeben.
+    </p>
+  </section>
 
-      <footer>
-        <div><b style="color:var(--text)">Created by:</b> F1rst-Connect by Jan Schmidt</div>
-        <div class="footerlinks">
-          <a href="index.html">Start</a>
-          <a href="index.html#ablauf">Ablauf</a>
-          <a href="formular.html">Formular</a>
-          <a href="impressum.html">Impressum</a>
-          <a href="datenschutz.html">Datenschutz</a>
-        </div>
-        <div class="mutedSmall">Win-Win-Win: Nutzer · Partner/Institutionen · System</div>
-      </footer>
-    </main>
-  </div>
+  <footer>
+    Created by <b>F1rst-Connect by Jan Schmidt</b> · Win-Win-Win
+  </footer>
+
+</main>
+
 </body>
 </html>

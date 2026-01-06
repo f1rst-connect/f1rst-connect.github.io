@@ -1,237 +1,462 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>F1rst-Connect by Jan Schmidt – nächster logischer Schritt</title>
-
-  <meta name="description" content="Ein klarer nächster Schritt. Einmal kostenlos. Danach nur, wenn du willst. Ruhe, Struktur, Entscheidung." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="F1rst-Connect by Jan Schmidt – Ruhiger Navigator für Klarheit, Struktur und den nächsten logischen Schritt." />
+  <title>F1rst-Connect by Jan Schmidt</title>
 
   <style>
     :root{
-      --bg:#0b1220;
-      --card:#121a2e;
-      --accent:#5ecbff;
-      --text:#e6ebf2;
-      --muted:#9aa4b2;
-      --radius:16px;
+      --bg: #070b14;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --stroke: rgba(255,255,255,.08);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.58);
+      --brand: #62c9ff;
+      --brand2: #8ad8ff;
+      --ok: rgba(98,201,255,.14);
+      --radius: 18px;
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
+      --max: 980px;
     }
 
-    *{box-sizing:border-box}
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
     body{
       margin:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu;
-      background:radial-gradient(1200px 600px at 20% -10%,#16203b,var(--bg));
-      color:var(--text);
-      line-height:1.5;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% -10%, rgba(98,201,255,.18), transparent 60%),
+        radial-gradient(800px 500px at 85% 10%, rgba(164,98,255,.14), transparent 55%),
+        radial-gradient(900px 500px at 50% 110%, rgba(98,255,203,.08), transparent 55%),
+        var(--bg);
+      min-height: 100vh;
     }
 
-    a{color:var(--accent);text-decoration:none}
+    a{ color: var(--brand2); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 18px 16px 70px; }
 
     header{
-      padding:20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      font-size:14px;
+      position: sticky; top: 0;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(7,11,20,.82), rgba(7,11,20,.55));
+      border-bottom: 1px solid var(--stroke);
+      z-index: 50;
     }
 
-    main{
-      max-width:720px;
-      margin:0 auto;
-      padding:16px;
+    .topbar{
+      max-width: var(--max);
+      margin: 0 auto;
+      display:flex; align-items:center; justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+    }
+
+    .brand{
+      display:flex; flex-direction: column; gap: 2px;
+      line-height: 1.1;
+    }
+    .brand strong{ font-size: 16px; letter-spacing: .2px; }
+    .brand span{ font-size: 12px; color: var(--muted2); }
+
+    nav{
+      display:flex; gap: 12px; align-items:center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .navlink{
+      font-size: 13px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .navlink:hover{
+      border-color: var(--stroke);
+      background: rgba(255,255,255,.03);
+      text-decoration: none;
+    }
+
+    .hero{
+      margin-top: 18px;
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: calc(var(--radius) + 6px);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(800px 250px at 20% 0%, rgba(98,201,255,.22), transparent 55%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .hero-inner{ position: relative; }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: 30px;
+      letter-spacing: .2px;
+    }
+    .sub{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14.5px;
+      max-width: 70ch;
+    }
+
+    .chips{
+      display:flex; flex-wrap: wrap; gap: 8px;
+      margin: 12px 0 18px;
+    }
+    .chip{
+      font-size: 12.5px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--stroke);
+    }
+
+    .cta-row{
+      display:flex; gap: 10px; flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .btn{
+      border: 1px solid transparent;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 220px;
+      text-decoration: none;
+      user-select:none;
+    }
+    .btnPrimary{
+      background: linear-gradient(180deg, var(--brand2), var(--brand));
+      color: rgba(5,10,18,.96);
+      box-shadow: 0 14px 28px rgba(98,201,255,.18);
+    }
+    .btnPrimary:hover{ filter: brightness(1.04); text-decoration:none; }
+    .btnGhost{
+      background: rgba(255,255,255,.03);
+      border-color: var(--stroke);
+      color: var(--text);
+    }
+    .btnGhost:hover{ background: rgba(255,255,255,.05); text-decoration:none; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+      .btn{ min-width: 0; width: 100%; }
     }
 
     .card{
-      background:linear-gradient(180deg,#141d34,#0f172b);
-      border-radius:var(--radius);
-      padding:24px;
-      margin-bottom:16px;
-      box-shadow:0 10px 30px rgba(0,0,0,.35);
+      border: 1px solid var(--stroke);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 16px;
     }
 
-    h1{
-      font-size:1.8rem;
-      margin:0 0 8px;
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: .2px;
     }
+    .muted{ color: var(--muted); }
+    .small{ font-size: 12.5px; color: var(--muted2); }
 
-    h2{
-      font-size:1.1rem;
-      margin:0 0 8px;
+    .steps{
+      margin: 0; padding-left: 18px;
+      color: var(--muted);
     }
+    .steps li{ margin: 8px 0; }
 
-    p{margin:0 0 10px}
-    .muted{color:var(--muted);font-size:.9rem}
+    details{
+      border: 1px solid var(--stroke);
+      background: var(--panel2);
+      border-radius: 14px;
+      padding: 12px 12px;
+      margin-top: 10px;
+    }
+    summary{
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--text);
+    }
+    details p{ margin: 10px 0 0; color: var(--muted); }
 
-    .badges{
+    .pick{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 560px){
+      .pick{ grid-template-columns: 1fr; }
+    }
+    .pill{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding: 12px;
       display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin:12px 0;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pill strong{ font-size: 13.5px; }
+    .pill span{ font-size: 12.5px; color: var(--muted); }
+
+    .divider{
+      height:1px;
+      background: var(--stroke);
+      margin: 18px 0;
     }
 
-    .badge{
-      background:#1a2442;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:.75rem;
-      color:#cfe9ff;
+    /* Formular */
+    .formShell{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      overflow: hidden;
     }
-
-    .btn{
-      display:inline-block;
-      margin-top:14px;
-      background:linear-gradient(135deg,#6ad1ff,#4bb8ff);
-      color:#001018;
-      padding:14px 18px;
-      border-radius:12px;
-      font-weight:600;
-      border:none;
-      cursor:pointer;
-      text-align:center;
-      width:100%;
+    .formTop{
+      padding: 14px 14px 0;
     }
-
-    .btn.secondary{
-      background:transparent;
-      color:var(--accent);
-      border:1px solid #2a3a66;
-      margin-top:10px;
+    .iframeWrap{
+      width: 100%;
+      height: 640px;
+      border: 0;
+      display:block;
+      background: rgba(0,0,0,.12);
     }
-
-    ul{
-      padding-left:18px;
-      margin:8px 0 0;
+    .formHint{
+      padding: 10px 14px 14px;
+      color: var(--muted2);
+      font-size: 12.5px;
     }
-
-    li{margin-bottom:6px}
 
     footer{
-      text-align:center;
-      font-size:.75rem;
-      color:var(--muted);
-      padding:24px 12px;
+      margin-top: 18px;
+      border-top: 1px solid var(--stroke);
+      padding-top: 16px;
+      color: var(--muted2);
+      font-size: 12.5px;
     }
-
-    iframe{
-      width:100%;
-      border:none;
-      border-radius:12px;
-      min-height:520px;
-      background:#0b1220;
+    .footerRow{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footerLinks{
+      display:flex; gap: 12px; flex-wrap: wrap;
     }
   </style>
 </head>
 
 <body>
-
 <header>
-  <strong>F1rst-Connect by Jan Schmidt</strong>
-  <nav>
-    <a href="#ablauf">Ablauf</a> ·
-    <a href="#formular">Formular</a>
-  </nav>
-</header>
-
-<main>
-
-  <!-- HERO -->
-  <section class="card">
-    <h1>Sei nicht Teil des Problems.<br>Sei Teil der Lösung.</h1>
-    <p class="muted">
-      Für mich gibt es keine Probleme.  
-      Nur Themen mit einem nächsten logischen Schritt.
-    </p>
-
-    <div class="badges">
-      <span class="badge">1 Thema · 1 Schritt</span>
-      <span class="badge">Klarheit statt Chaos</span>
-      <span class="badge">Win-Win-Win</span>
+  <div class="topbar">
+    <div class="brand">
+      <strong>F1rst-Connect by Jan Schmidt</strong>
+      <span>Ruhiger Navigator · nächster logischer Schritt</span>
     </div>
 
-    <a href="#formular" class="btn">Kostenlosen nächsten Schritt erhalten</a>
-    <a href="#ablauf" class="btn secondary">Ablauf ansehen</a>
+    <nav>
+      <a class="navlink" href="#top">Start</a>
+      <a class="navlink" href="#ablauf">Ablauf</a>
+      <a class="navlink" href="#formular">Formular</a>
+      <a class="navlink" href="impressum.html">Impressum</a>
+      <a class="navlink" href="datenschutz.html">Datenschutz</a>
+    </nav>
+  </div>
+</header>
 
-    <p class="muted" style="margin-top:10px">
-      Kein Verkauf. Keine Verpflichtung. Ein klarer nächster Schritt.
+<main id="top" class="wrap">
+
+  <section class="hero" aria-label="Hero">
+    <div class="hero-inner">
+      <h1>Sei nicht Teil des Problems.<br>Sei Teil der Lösung.</h1>
+      <p class="sub">
+        Ich arbeite nicht mit Drama. Ich arbeite mit Klarheit, Struktur und dem <b>nächsten natürlichen Schritt</b>.
+        <br><b>1× kostenlos</b> pro Person. Danach ist weitere Ausarbeitung kostenpflichtig.
+      </p>
+
+      <div class="chips" aria-label="Merkpunkte">
+        <div class="chip">Klarheit statt Chaos</div>
+        <div class="chip">1 Thema · 1 Schritt</div>
+        <div class="chip">Win-Win-Win</div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn btnPrimary" href="#formular">Kostenlosen nächsten Schritt erhalten</a>
+        <a class="btn btnGhost" href="#ablauf">Ablauf ansehen</a>
+        <a class="btn btnGhost" href="formular.html">Formular als eigene Seite</a>
+      </div>
+
+      <p class="small" style="margin-top:10px;">Kein Verkauf. Keine Verpflichtung. Ein klarer nächster Schritt.</p>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="card" id="ablauf">
+      <h2>So funktioniert’s</h2>
+      <ol class="steps">
+        <li>Du beschreibst dein Thema kurz (2–4 Sätze).</li>
+        <li>Ich liefere <b>1</b> nächsten logischen Schritt: klar, machbar, ohne Overkill.</li>
+        <li>Du setzt um – danach entscheiden wir, ob es weitergeht (bezahlt).</li>
+      </ol>
+
+      <details>
+        <summary>Regeln (damit’s funktioniert)</summary>
+        <p>
+          Fokus schlägt Chaos. Wenn’s „alles auf einmal“ ist, stoppe ich das und wir schneiden es auf ein Thema runter.
+          Keine Romane, keine Endlos-Listen.
+        </p>
+      </details>
+    </section>
+
+    <aside class="card">
+      <h2>Wer hier denkt und entscheidet</h2>
+      <p class="muted" style="margin:0 0 10px;">
+        Ruhig, strukturiert, ehrlich. Wenn was nicht passt, sag ich’s. Wenn es passt, bekommst du Führung.
+      </p>
+      <ul class="steps">
+        <li>Ausbildung: Bürokaufmann</li>
+        <li>Vertrieb/Callcenter-Praxis (Gesprächsführung, Abschlüsse)</li>
+        <li>Organisations- & Führungsverantwortung (u. a. Standort/Teams)</li>
+        <li>IHK: zertifizierter Salespartner im Direktvertrieb</li>
+        <li>Gewerbe aktiv: <b>F1rst-Connect by Jan Schmidt</b> (seit 03.05.2022)</li>
+      </ul>
+      <p class="small" style="margin-top:10px;">
+        Hinweis: Seit August 2025 keine aktive VO-Nummer mehr, frühere Tätigkeiten beendet.
+      </p>
+    </aside>
+  </div>
+
+  <section class="card" style="margin-top:14px;">
+    <h2>Themen – Beispiele (zum Anklicken)</h2>
+    <p class="muted" style="margin-top:-4px;">
+      Klick eins an – der Text landet automatisch im Formular. Du kannst danach noch anpassen.
+    </p>
+
+    <div class="pick">
+      <button class="pill" type="button" data-fill="Ich will meine Finanzen stabilisieren und klare Schritte für die nächsten 30 Tage. Ich brauche Prioritäten, die realistisch sind.">
+        <strong>Finanzen & Ordnung</strong>
+        <span>Schulden/Übersicht · Budget · 30-Tage-Plan</span>
+      </button>
+
+      <button class="pill" type="button" data-fill="Ich habe zu viele Baustellen und verliere Fokus. Ich brauche eine klare Entscheidung, was als Nächstes dran ist, und wie ich starte.">
+        <strong>Fokus & Struktur</strong>
+        <span>Chaos → 1 Thema · 1 Schritt</span>
+      </button>
+
+      <button class="pill" type="button" data-fill="Ich will ein Angebot / eine Website / ein Produkt sauber aufsetzen. Ich brauche den nächsten logischen Schritt ohne Overengineering.">
+        <strong>Business/Setup</strong>
+        <span>Angebot · Website · Prozess</span>
+      </button>
+
+      <button class="pill" type="button" data-fill="Ich brauche eine klare Kommunikationslinie (Jobcenter/Behörde/Partner). Kurz, sachlich, ohne Drama – aber bestimmt.">
+        <strong>Kommunikation</strong>
+        <span>Text · Argumentation · Nachfass</span>
+      </button>
+    </div>
+
+    <p class="small" style="margin-top:10px;">
+      Tipp: Schreib so, dass man’s in 20 Sekunden versteht.
     </p>
   </section>
 
-  <!-- SO FUNKTIONIERTS -->
-  <section id="ablauf" class="card">
-    <h2>So funktioniert’s</h2>
-    <ol>
-      <li>Du beschreibst <strong>ein Thema</strong>.</li>
-      <li>Ich liefere den <strong>nächsten logischen Schritt</strong>.</li>
-      <li>Du setzt um – danach entscheidest du.</li>
-    </ol>
+  <div class="divider"></div>
 
-    <p class="muted" style="margin-top:8px">
-      Hinweis: Ein kostenloser nächster Schritt pro Person.  
-      Weitere Zusammenarbeit ist kostenpflichtig.
-    </p>
-  </section>
-
-  <!-- ARBEITSWEISE -->
-  <section class="card">
-    <h2>Arbeitsweise</h2>
-    <ul>
-      <li>Ruhig, strukturiert, ehrlich</li>
-      <li>Keine Spielchen, kein Up-Sell-Druck</li>
-      <li>Orientierung ist einmalig – Umsetzung ist Arbeit</li>
-    </ul>
-  </section>
-
-  <!-- ÜBER MICH -->
-  <section class="card">
-    <h2>Wer hier denkt und entscheidet</h2>
-    <p>
-      Ich arbeite mit Klarheit, Struktur und Entscheidungen.
-    </p>
-
-    <ul>
-      <li>Ausbildung zum Bürokaufmann</li>
-      <li>Callcenter & Vertrieb: ca. 2 Jahre</li>
-      <li>D2D / Direktvertrieb: 09/2008 – 01/2025</li>
-      <li>Organisations- & Führungsverantwortung (Teams/Standorte)</li>
-      <li>IHK: zertifizierter Salespartner im Direktvertrieb</li>
-      <li>Gewerbe aktiv: <strong>F1rst-Connect by Jan Schmidt</strong></li>
-    </ul>
-  </section>
-
-  <!-- FORMULAR -->
-  <section id="formular" class="card">
+  <section id="formular" class="card" aria-label="Formular">
     <h2>Kostenloser nächster Schritt</h2>
-    <p class="muted">
+    <p class="muted" style="margin-top:-4px;">
       Beschreibe dein Thema kurz und klar (2–4 Sätze reichen).
     </p>
 
-    <!-- TALLY FORM -->
-    <!-- HIER SPÄTER EINFACH DIE URL AUSTAUSCHEN -->
-    <iframe 
-      data-tally-src="https://tally.so/r/PLACEHOLDER"
-      loading="lazy">
-    </iframe>
+    <div class="formShell">
+      <div class="formTop">
+        <p class="small" style="margin:0;">
+          Wenn das Formular nicht lädt: <a href="formular.html">hier als eigene Seite öffnen</a>.
+        </p>
+      </div>
 
-    <p class="muted" style="margin-top:8px">
-      Technisch abgesichert: 1 Antwort pro Person.
-    </p>
+      <!-- ✅ TALLY EMBED: HIER DEINE TALLY URL EINFÜGEN -->
+      <!-- Beispiel: https://tally.so/r/DEINCODE -->
+      <iframe
+        id="tallyFrame"
+        class="iframeWrap"
+        src="PASTE_YOUR_TALLY_EMBED_URL_HERE"
+        title="F1rst-Connect – Formular"
+        loading="lazy">
+      </iframe>
+
+      <div class="formHint">
+        Technisch abgesichert: 1 Antwort pro Person (über Formular-Einstellungen). Kein Verkauf. Keine Verpflichtung.
+      </div>
+    </div>
+
+    <div class="cta-row" style="margin-top:12px;">
+      <a class="btn btnGhost" href="#top">Zurück nach oben</a>
+    </div>
   </section>
+
+  <footer>
+    <div class="footerRow">
+      <div><b>Created by:</b> F1rst-Connect by Jan Schmidt</div>
+      <div class="footerLinks">
+        <a href="#top">Start</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#formular">Formular</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </div>
+    </div>
+    <div style="margin-top:10px;">Win-Win-Win: Nutzer · Partner/Institutionen · System</div>
+  </footer>
 
 </main>
 
-<footer>
-  Created by: F1rst-Connect by Jan Schmidt<br>
-  Win-Win-Win: Nutzer · Partner/Institutionen · System
-</footer>
-
-<!-- TALLY SCRIPT -->
 <script>
-  var d=document,w="https://tally.so/widgets/embed.js";
-  var s=d.createElement("script");
-  s.src=w;s.async=true;
-  d.body.appendChild(s);
-</script>
+  // Beispiel-Buttons -> Text ins Formular (nur UX; Tally selbst braucht keine JS-API)
+  // Wir legen den Text in localStorage und hängen optional als query an, falls du später eigene Logik willst.
+  const pills = document.querySelectorAll("[data-fill]");
+  const frame = document.getElementById("tallyFrame");
 
+  pills.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const txt = btn.getAttribute("data-fill") || "";
+      try { localStorage.setItem("f1rst_topic_prefill", txt); } catch(e) {}
+      // Visuelles Feedback:
+      pills.forEach(b => b.style.outline = "none");
+      btn.style.outline = "2px solid rgba(98,201,255,.55)";
+      // Hinweis: echtes Prefill in Tally geht über URL-Parameter, wenn du Felder entsprechend benennst.
+      // Das machen wir gleich sauber in den Tally-Settings.
+      alert("Übernommen. Scroll runter zum Formular und passe den Text bei Bedarf an.");
+      document.getElementById("formular").scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+</script>
 </body>
 </html>
